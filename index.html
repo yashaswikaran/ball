@@ -1,0 +1,823 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0, user-scalable=no">
+<title>🌙 My Moon Universe ✨ Prom Proposal</title>
+
+<style>
+    * {
+        margin: 0;
+        padding: 0;
+        box-sizing: border-box;
+        user-select: none;
+    }
+
+    body {
+        min-height: 100vh;
+        font-family: 'Arial', 'Segoe UI', 'Poppins', cursive, sans-serif;
+        background: radial-gradient(ellipse at center, #0a0a2a 0%, #030318 50%, #000010 100%);
+        color: #fff;
+        text-align: center;
+        display: flex;
+        justify-content: center;
+        align-items: center;
+        position: relative;
+        overflow-x: hidden;
+    }
+
+    /* Stars background */
+    .stars {
+        position: fixed;
+        top: 0;
+        left: 0;
+        width: 100%;
+        height: 100%;
+        pointer-events: none;
+        z-index: 0;
+    }
+
+    .star {
+        position: absolute;
+        background: white;
+        border-radius: 50%;
+        animation: twinkle 3s infinite alternate;
+    }
+
+    @keyframes twinkle {
+        0% { opacity: 0.2; transform: scale(1); }
+        100% { opacity: 1; transform: scale(1.2); }
+    }
+
+    /* Floating moons and planets */
+    .moon-bg {
+        position: fixed;
+        top: 0;
+        left: 0;
+        width: 100%;
+        height: 100%;
+        pointer-events: none;
+        z-index: 0;
+        overflow: hidden;
+    }
+
+    .floating-moon {
+        position: absolute;
+        animation: floatOrbit 12s linear infinite;
+        font-size: 30px;
+        opacity: 0.4;
+    }
+
+    @keyframes floatOrbit {
+        0% {
+            transform: translateY(100vh) rotate(0deg);
+            opacity: 0;
+        }
+        10% {
+            opacity: 0.5;
+        }
+        90% {
+            opacity: 0.5;
+        }
+        100% {
+            transform: translateY(-20vh) rotate(360deg);
+            opacity: 0;
+        }
+    }
+
+    .planet {
+        position: absolute;
+        border-radius: 50%;
+        background: radial-gradient(circle at 30% 30%, rgba(255,200,150,0.3), rgba(255,100,100,0.1));
+        animation: planetRotate 20s linear infinite;
+    }
+
+    @keyframes planetRotate {
+        0% { transform: rotate(0deg); }
+        100% { transform: rotate(360deg); }
+    }
+
+    /* Shooting stars */
+    .shooting-star {
+        position: absolute;
+        width: 2px;
+        height: 2px;
+        background: linear-gradient(135deg, white, #ffd700);
+        animation: shoot 3s linear infinite;
+        opacity: 0;
+    }
+
+    @keyframes shoot {
+        0% {
+            transform: translateX(0) translateY(0);
+            opacity: 0;
+        }
+        10% {
+            opacity: 1;
+        }
+        90% {
+            opacity: 1;
+        }
+        100% {
+            transform: translateX(-300px) translateY(200px);
+            opacity: 0;
+        }
+    }
+
+    /* Main container */
+    .container {
+        position: relative;
+        z-index: 10;
+        background: rgba(10, 5, 30, 0.6);
+        backdrop-filter: blur(12px);
+        border-radius: 60px;
+        padding: 30px;
+        margin: 20px;
+        box-shadow: 0 20px 50px rgba(0, 0, 0, 0.5), 0 0 0 2px rgba(255, 200, 150, 0.2), 0 0 30px rgba(100, 50, 150, 0.3);
+        animation: cosmicGlow 3s infinite;
+    }
+
+    @keyframes cosmicGlow {
+        0%, 100% {
+            box-shadow: 0 20px 50px rgba(0, 0, 0, 0.5), 0 0 0 2px rgba(255, 200, 150, 0.2), 0 0 30px rgba(100, 50, 150, 0.3);
+        }
+        50% {
+            box-shadow: 0 20px 50px rgba(0, 0, 0, 0.5), 0 0 0 3px rgba(255, 200, 150, 0.5), 0 0 50px rgba(150, 80, 200, 0.5);
+        }
+    }
+
+    h1 {
+        font-size: 2.2rem;
+        background: linear-gradient(135deg, #c9a9e6, #ffb7d2, #ffd700);
+        -webkit-background-clip: text;
+        background-clip: text;
+        color: transparent;
+        margin-bottom: 20px;
+        animation: titleFloat 3s ease-in-out infinite;
+        letter-spacing: 2px;
+    }
+
+    @keyframes titleFloat {
+        0%, 100% { transform: translateY(0px); }
+        50% { transform: translateY(-5px); }
+    }
+
+    .moon-nickname {
+        font-size: 1rem;
+        color: #ffd700;
+        margin-top: -10px;
+        margin-bottom: 15px;
+        animation: pulseGold 2s infinite;
+    }
+
+    @keyframes pulseGold {
+        0%, 100% { text-shadow: 0 0 5px #ffd700; opacity: 0.8; }
+        50% { text-shadow: 0 0 20px #ffd700; opacity: 1; }
+    }
+
+    /* Puzzle grid - seamless */
+    #puzzle {
+        width: 350px;
+        height: 350px;
+        margin: 20px auto;
+        display: grid;
+        grid-template-columns: repeat(3, 1fr);
+        gap: 0px;
+        background: rgba(20, 10, 40, 0.5);
+        border-radius: 25px;
+        box-shadow: 0 10px 40px rgba(0, 0, 0, 0.5), inset 0 0 20px rgba(255, 200, 150, 0.1);
+        overflow: hidden;
+        position: relative;
+        border: 1px solid rgba(255, 215, 0, 0.3);
+    }
+
+    .tile {
+        background: linear-gradient(135deg, #1a1a3e, #0f0f2a);
+        cursor: pointer;
+        transition: all 0.3s cubic-bezier(0.34, 1.2, 0.64, 1);
+        position: relative;
+        overflow: hidden;
+        border: none;
+        margin: 0;
+        padding: 0;
+    }
+
+    /* Crescent moon symbol before reveal */
+    .tile::before {
+        content: "🌙";
+        position: absolute;
+        top: 50%;
+        left: 50%;
+        transform: translate(-50%, -50%);
+        font-size: 28px;
+        color: #ffd700;
+        text-shadow: 0 0 10px rgba(255, 215, 0, 0.5);
+        transition: all 0.3s;
+        pointer-events: none;
+        z-index: 2;
+    }
+
+    /* Hover effect on unrevealed tiles */
+    .tile:not(.revealed):hover {
+        background: linear-gradient(135deg, #2a2a5e, #1a1a4e);
+        transform: scale(1.02);
+        z-index: 5;
+        box-shadow: 0 0 20px rgba(255, 215, 0, 0.3);
+    }
+
+    .tile:not(.revealed):hover::before {
+        transform: translate(-50%, -50%) scale(1.2);
+        content: "🌕";
+        color: #ffea80;
+    }
+
+    /* Revealed tile */
+    .tile.revealed {
+        animation: tileReveal 0.4s cubic-bezier(0.34, 1.2, 0.64, 1);
+        background-color: transparent;
+        z-index: 1;
+    }
+
+    .tile.revealed::before {
+        display: none;
+    }
+
+    @keyframes tileReveal {
+        0% {
+            transform: scale(0.8);
+            opacity: 0;
+            filter: blur(2px);
+        }
+        50% {
+            transform: scale(1.03);
+        }
+        100% {
+            transform: scale(1);
+            opacity: 1;
+            filter: blur(0);
+        }
+    }
+
+    /* Progress bar - moon themed */
+    .progress-container {
+        margin: 20px auto;
+        width: 300px;
+    }
+
+    .progress-text {
+        font-size: 14px;
+        color: #ffd700;
+        margin-bottom: 8px;
+        letter-spacing: 1px;
+        text-shadow: 0 0 5px #ffd700;
+    }
+
+    .progress-bar {
+        width: 100%;
+        height: 8px;
+        background: rgba(255, 215, 0, 0.2);
+        border-radius: 10px;
+        overflow: hidden;
+    }
+
+    .progress-fill {
+        height: 100%;
+        background: linear-gradient(90deg, #ffd700, #c9a9e6, #ffd700);
+        width: 0%;
+        transition: width 0.5s ease;
+        border-radius: 10px;
+        animation: shimmer 2s infinite;
+    }
+
+    @keyframes shimmer {
+        0% { opacity: 1; background-position: 0% 50%; }
+        50% { opacity: 0.8; }
+        100% { opacity: 1; background-position: 100% 50%; }
+    }
+
+    /* Message styling - moon universe theme */
+    #message {
+        opacity: 0;
+        margin-top: 25px;
+        font-size: 24px;
+        transition: all 0.8s cubic-bezier(0.34, 1.2, 0.64, 1);
+        transform: translateY(30px) scale(0.9);
+        background: linear-gradient(135deg, rgba(20, 10, 50, 0.9), rgba(10, 5, 30, 0.9));
+        padding: 25px;
+        border-radius: 50px;
+        backdrop-filter: blur(8px);
+        border: 1px solid rgba(255, 215, 0, 0.3);
+    }
+
+    #message.show {
+        opacity: 1;
+        transform: translateY(0) scale(1);
+        animation: messageGlow 1s ease;
+    }
+
+    @keyframes messageGlow {
+        0% { box-shadow: 0 0 0 rgba(255, 215, 0, 0); }
+        100% { box-shadow: 0 0 40px rgba(255, 215, 0, 0.3); }
+    }
+
+    .message-text {
+        font-size: 20px;
+        margin-bottom: 15px;
+        color: #ffd700;
+    }
+
+    .prom-question {
+        font-size: 26px;
+        font-weight: bold;
+        background: linear-gradient(135deg, #ffd700, #ffb7d2, #c9a9e6);
+        -webkit-background-clip: text;
+        background-clip: text;
+        color: transparent;
+        margin-top: 10px;
+        animation: questionPulse 2s infinite;
+    }
+
+    @keyframes questionPulse {
+        0%, 100% { transform: scale(1); }
+        50% { transform: scale(1.03); }
+    }
+
+    /* Buttons styling - cosmic */
+    .button-group {
+        margin-top: 20px;
+        display: flex;
+        gap: 20px;
+        justify-content: center;
+    }
+
+    .prom-btn {
+        padding: 12px 30px;
+        font-size: 18px;
+        font-weight: bold;
+        border: none;
+        border-radius: 50px;
+        cursor: pointer;
+        transition: all 0.3s ease;
+        font-family: inherit;
+        position: relative;
+        overflow: hidden;
+    }
+
+    .prom-btn::before {
+        content: '';
+        position: absolute;
+        top: 50%;
+        left: 50%;
+        width: 0;
+        height: 0;
+        border-radius: 50%;
+        background: rgba(255, 255, 255, 0.3);
+        transform: translate(-50%, -50%);
+        transition: width 0.6s, height 0.6s;
+    }
+
+    .prom-btn:hover::before {
+        width: 300px;
+        height: 300px;
+    }
+
+    .btn-yes {
+        background: linear-gradient(135deg, #ffd700, #ffaa00);
+        color: #1a0a2e;
+        box-shadow: 0 5px 20px rgba(255, 215, 0, 0.4);
+    }
+
+    .btn-yes:hover {
+        transform: scale(1.05) translateY(-3px);
+        box-shadow: 0 8px 30px rgba(255, 215, 0, 0.6);
+    }
+
+    .btn-no {
+        background: linear-gradient(135deg, #2a2a5e, #1a1a4e);
+        color: #c9a9e6;
+        box-shadow: 0 5px 15px rgba(0, 0, 0, 0.3);
+        border: 1px solid rgba(255, 215, 0, 0.3);
+    }
+
+    .btn-no:hover {
+        transform: scale(1.05) translateY(-3px);
+        background: linear-gradient(135deg, #3a3a6e, #2a2a5e);
+    }
+
+    /* Cosmic effects */
+    .ripple-moon {
+        position: fixed;
+        border-radius: 50%;
+        background: radial-gradient(circle, #ffd700, #c9a9e6, transparent);
+        pointer-events: none;
+        animation: cosmicRipple 0.8s ease-out forwards;
+        z-index: 1000;
+    }
+
+    @keyframes cosmicRipple {
+        0% {
+            transform: scale(0);
+            opacity: 0.8;
+        }
+        100% {
+            transform: scale(15);
+            opacity: 0;
+        }
+    }
+
+    .moon-dust {
+        position: fixed;
+        width: 4px;
+        height: 4px;
+        background: radial-gradient(circle, #ffd700, #ffaa00);
+        border-radius: 50%;
+        pointer-events: none;
+        z-index: 1000;
+        animation: dustFloat 1s ease-out forwards;
+    }
+
+    @keyframes dustFloat {
+        0% {
+            transform: translateY(0) scale(1);
+            opacity: 1;
+        }
+        100% {
+            transform: translateY(-50px) scale(0);
+            opacity: 0;
+        }
+    }
+
+    @media (max-width: 500px) {
+        #puzzle {
+            width: 280px;
+            height: 280px;
+        }
+        h1 {
+            font-size: 1.6rem;
+        }
+        .message-text {
+            font-size: 16px;
+        }
+        .prom-question {
+            font-size: 20px;
+        }
+    }
+</style>
+
+</head>
+<body>
+
+<div class="stars" id="stars"></div>
+<div class="moon-bg" id="moonBg"></div>
+
+<div class="container">
+    <h1>🌙 To My Moon  🌙</h1>
+    <div class="moon-nickname">✨ my everything in the cosmos ✨</div>
+
+    <div id="puzzle"></div>
+
+    <div class="progress-container">
+        <div class="progress-text" id="progressText">🌙 0/9 pieces to reveal our universe 🌙</div>
+        <div class="progress-bar">
+            <div class="progress-fill" id="progressFill"></div>
+        </div>
+    </div>
+
+    <div id="message">
+        <div class="message-text">
+            🌕 This is our first picture together 💫
+        </div>
+        <div class="prom-question">
+            🌙 My Moon, will you go to prom with me? 🌙
+        </div>
+        <div class="button-group">
+            <button class="prom-btn btn-yes" id="yesBtn">🌕 YES! To the moon & back 🌕</button>
+            <button class="prom-btn btn-no" id="noBtn">🌙 ...impossible to say no 🌙</button>
+        </div>
+    </div>
+</div>
+
+<script>
+const puzzle = document.getElementById("puzzle");
+const message = document.getElementById("message");
+const progressText = document.getElementById("progressText");
+const progressFill = document.getElementById("progressFill");
+
+const SIZE = 3;
+let revealed = 0;
+
+// ============================================
+// IMPORTANT: Put YOUR image name here!
+// Example: 'our-photo.jpg' or 'moon-memory.png'
+// ============================================
+const imageUrl = "your-image.jpeg"; // 🔴 CHANGE THIS to your image filename!
+
+// Create stars background
+function createStars() {
+    const starsContainer = document.getElementById("stars");
+    for (let i = 0; i < 200; i++) {
+        const star = document.createElement("div");
+        star.classList.add("star");
+        star.style.left = Math.random() * 100 + "%";
+        star.style.top = Math.random() * 100 + "%";
+        star.style.width = Math.random() * 3 + 1 + "px";
+        star.style.height = star.style.width;
+        star.style.animationDelay = Math.random() * 3 + "s";
+        star.style.animationDuration = Math.random() * 2 + 1 + "s";
+        starsContainer.appendChild(star);
+    }
+}
+
+// Create floating moons and planets
+function createFloatingMoons() {
+    const moonBg = document.getElementById("moonBg");
+    const moons = ['🌙', '🌕', '🌖', '🌗', '🌘', '🌑', '✨', '⭐', '🪐', '🌍'];
+    
+    for (let i = 0; i < 30; i++) {
+        const moon = document.createElement("div");
+        moon.classList.add("floating-moon");
+        moon.textContent = moons[Math.floor(Math.random() * moons.length)];
+        moon.style.left = Math.random() * 100 + "%";
+        moon.style.animationDuration = Math.random() * 10 + 8 + "s";
+        moon.style.animationDelay = Math.random() * 10 + "s";
+        moon.style.fontSize = Math.random() * 25 + 15 + "px";
+        moon.style.opacity = Math.random() * 0.3 + 0.2;
+        moonBg.appendChild(moon);
+    }
+    
+    // Add planets
+    for (let i = 0; i < 8; i++) {
+        const planet = document.createElement("div");
+        planet.classList.add("planet");
+        planet.style.left = Math.random() * 100 + "%";
+        planet.style.top = Math.random() * 100 + "%";
+        planet.style.width = Math.random() * 60 + 20 + "px";
+        planet.style.height = planet.style.width;
+        planet.style.animationDuration = Math.random() * 30 + 20 + "s";
+        planet.style.animationDelay = Math.random() * 10 + "s";
+        moonBg.appendChild(planet);
+    }
+}
+
+// Shooting stars
+function createShootingStars() {
+    const moonBg = document.getElementById("moonBg");
+    setInterval(() => {
+        const star = document.createElement("div");
+        star.classList.add("shooting-star");
+        star.style.left = Math.random() * 80 + 10 + "%";
+        star.style.top = Math.random() * 30 + "%";
+        star.style.animation = "shoot 2s linear forwards";
+        moonBg.appendChild(star);
+        setTimeout(() => star.remove(), 2000);
+    }, 4000);
+}
+
+// Update progress
+function updateProgress() {
+    const percent = (revealed / (SIZE * SIZE)) * 100;
+    progressFill.style.width = percent + "%";
+    
+    const moonEmojis = ['🌙', '🌕', '🌖', '🌗', '🌘'];
+    const moonIndex = Math.floor(revealed / 2) % moonEmojis.length;
+    
+    if (revealed === SIZE * SIZE) {
+        progressText.innerHTML = "🌕✨ All pieces revealed! Our universe is complete ✨🌕";
+    } else {
+        progressText.innerHTML = `${moonEmojis[moonIndex]} ${revealed}/${SIZE * SIZE} pieces - revealing our galaxy ${moonEmojis[moonIndex]}`;
+    }
+}
+
+// Cosmic effect on click
+function createCosmicEffect(x, y) {
+    const ripple = document.createElement("div");
+    ripple.classList.add("ripple-moon");
+    ripple.style.left = x - 20 + "px";
+    ripple.style.top = y - 20 + "px";
+    ripple.style.width = "40px";
+    ripple.style.height = "40px";
+    document.body.appendChild(ripple);
+    setTimeout(() => ripple.remove(), 800);
+    
+    // Moon dust particles
+    for (let i = 0; i < 10; i++) {
+        const dust = document.createElement("div");
+        dust.classList.add("moon-dust");
+        dust.style.left = x + (Math.random() - 0.5) * 40 + "px";
+        dust.style.top = y + (Math.random() - 0.5) * 40 + "px";
+        dust.style.animationDuration = Math.random() * 0.8 + 0.5 + "s";
+        document.body.appendChild(dust);
+        setTimeout(() => dust.remove(), 1000);
+    }
+}
+
+// Confetti - moon themed
+function createMoonConfetti() {
+    for (let i = 0; i < 120; i++) {
+        const confetti = document.createElement("div");
+        confetti.classList.add("confetti");
+        const moonShapes = ['🌙', '🌕', '✨', '⭐', '🌖', '💫'];
+        confetti.textContent = moonShapes[Math.floor(Math.random() * moonShapes.length)];
+        confetti.style.position = "fixed";
+        confetti.style.left = Math.random() * window.innerWidth + "px";
+        confetti.style.top = "-20px";
+        confetti.style.fontSize = Math.random() * 20 + 10 + "px";
+        confetti.style.animation = "fallConfetti 3s linear forwards";
+        confetti.style.pointerEvents = "none";
+        confetti.style.zIndex = "1000";
+        document.body.appendChild(confetti);
+        setTimeout(() => confetti.remove(), 3000);
+    }
+}
+
+// Add confetti animation style
+const style = document.createElement('style');
+style.textContent = `
+    @keyframes fallConfetti {
+        0% {
+            transform: translateY(0) rotate(0deg);
+            opacity: 1;
+        }
+        100% {
+            transform: translateY(100vh) rotate(720deg);
+            opacity: 0;
+        }
+    }
+`;
+document.head.appendChild(style);
+
+// Create puzzle
+function createPuzzle() {
+    puzzle.innerHTML = "";
+    const puzzleWidth = puzzle.clientWidth;
+    const puzzleHeight = puzzle.clientHeight;
+    const tileWidth = puzzleWidth / SIZE;
+    const tileHeight = puzzleHeight / SIZE;
+    
+    for (let i = 0; i < SIZE * SIZE; i++) {
+        const tile = document.createElement("div");
+        tile.classList.add("tile");
+        tile.dataset.index = i;
+        tile.style.width = `${tileWidth}px`;
+        tile.style.height = `${tileHeight}px`;
+        
+        tile.addEventListener("click", (e) => {
+            e.stopPropagation();
+            reveal(tile, e.clientX, e.clientY);
+        });
+        
+        puzzle.appendChild(tile);
+    }
+}
+
+// Reveal tile
+function reveal(tile, clickX, clickY) {
+    if (tile.classList.contains("revealed")) return;
+    
+    const index = parseInt(tile.dataset.index);
+    const row = Math.floor(index / SIZE);
+    const col = index % SIZE;
+    
+    const puzzleWidth = puzzle.clientWidth;
+    const puzzleHeight = puzzle.clientHeight;
+    const tileWidth = puzzleWidth / SIZE;
+    const tileHeight = puzzleHeight / SIZE;
+    
+    const bgX = col * tileWidth;
+    const bgY = row * tileHeight;
+    
+    tile.style.backgroundImage = `url('${imageUrl}')`;
+    tile.style.backgroundSize = `${puzzleWidth}px ${puzzleHeight}px`;
+    tile.style.backgroundPosition = `-${bgX}px -${bgY}px`;
+    tile.style.backgroundRepeat = "no-repeat";
+    tile.style.backgroundColor = "transparent";
+    
+    tile.classList.add("revealed");
+    revealed++;
+    
+    if (clickX && clickY) {
+        createCosmicEffect(clickX, clickY);
+    }
+    
+    updateProgress();
+    
+    if (revealed === SIZE * SIZE) {
+        setTimeout(() => {
+            message.classList.add("show");
+            createMoonConfetti();
+            for (let i = 0; i < 3; i++) {
+                setTimeout(() => createMoonConfetti(), i * 300);
+            }
+        }, 500);
+    }
+}
+
+// Handle resize
+let resizeTimeout;
+window.addEventListener("resize", () => {
+    clearTimeout(resizeTimeout);
+    resizeTimeout = setTimeout(() => {
+        if (puzzle.clientWidth > 0) {
+            const puzzleWidth = puzzle.clientWidth;
+            const puzzleHeight = puzzle.clientHeight;
+            const tileWidth = puzzleWidth / SIZE;
+            const tileHeight = puzzleHeight / SIZE;
+            
+            const tiles = document.querySelectorAll(".tile");
+            tiles.forEach((tile, idx) => {
+                tile.style.width = `${tileWidth}px`;
+                tile.style.height = `${tileHeight}px`;
+                
+                if (tile.classList.contains("revealed")) {
+                    const row = Math.floor(idx / SIZE);
+                    const col = idx % SIZE;
+                    const bgX = col * tileWidth;
+                    const bgY = row * tileHeight;
+                    tile.style.backgroundSize = `${puzzleWidth}px ${puzzleHeight}px`;
+                    tile.style.backgroundPosition = `-${bgX}px -${bgY}px`;
+                }
+            });
+        }
+    }, 100);
+});
+
+// Buttons
+function setupButtons() {
+    const yesBtn = document.getElementById("yesBtn");
+    const noBtn = document.getElementById("noBtn");
+    
+    yesBtn.addEventListener("click", () => {
+        createMoonConfetti();
+        for (let i = 0; i < 5; i++) {
+            setTimeout(() => createMoonConfetti(), i * 200);
+        }
+        
+        const celebrationMsg = document.createElement("div");
+        celebrationMsg.innerHTML = "🌕💖 YAY! To the moon & back! 💖🌙";
+        celebrationMsg.style.position = "fixed";
+        celebrationMsg.style.top = "50%";
+        celebrationMsg.style.left = "50%";
+        celebrationMsg.style.transform = "translate(-50%, -50%)";
+        celebrationMsg.style.background = "linear-gradient(135deg, #1a0a3e, #2a1a5e)";
+        celebrationMsg.style.color = "#ffd700";
+        celebrationMsg.style.padding = "25px 50px";
+        celebrationMsg.style.borderRadius = "60px";
+        celebrationMsg.style.fontSize = "28px";
+        celebrationMsg.style.fontWeight = "bold";
+        celebrationMsg.style.zIndex = "2000";
+        celebrationMsg.style.animation = "tileReveal 0.5s ease";
+        celebrationMsg.style.border = "2px solid #ffd700";
+        celebrationMsg.style.whiteSpace = "nowrap";
+        document.body.appendChild(celebrationMsg);
+        
+        setTimeout(() => celebrationMsg.remove(), 3000);
+        
+        noBtn.disabled = true;
+        noBtn.style.opacity = "0.5";
+        yesBtn.innerHTML = "🌕 MY MOON UNIVERSE FOREVER 🌕";
+    });
+    
+    noBtn.addEventListener("click", () => {
+        const playfulMsg = document.createElement("div");
+        playfulMsg.innerHTML = "🌙 But... you're my whole universe! The moon already said yes 🌙";
+        playfulMsg.style.position = "fixed";
+        playfulMsg.style.bottom = "30px";
+        playfulMsg.style.left = "50%";
+        playfulMsg.style.transform = "translateX(-50%)";
+        playfulMsg.style.background = "#2a1a5e";
+        playfulMsg.style.padding = "12px 24px";
+        playfulMsg.style.borderRadius = "40px";
+        playfulMsg.style.color = "#ffd700";
+        playfulMsg.style.fontWeight = "bold";
+        playfulMsg.style.zIndex = "1200";
+        playfulMsg.style.animation = "tileReveal 0.4s";
+        playfulMsg.style.whiteSpace = "nowrap";
+        playfulMsg.style.border = "1px solid #ffd700";
+        document.body.appendChild(playfulMsg);
+        
+        setTimeout(() => playfulMsg.remove(), 2500);
+        
+        noBtn.style.transform = "scale(0.95)";
+        setTimeout(() => {
+            noBtn.style.transform = "";
+        }, 200);
+    });
+}
+
+// Initialize
+function init() {
+    createStars();
+    createFloatingMoons();
+    createShootingStars();
+    createPuzzle();
+    setupButtons();
+    updateProgress();
+}
+
+setTimeout(() => {
+    init();
+}, 100);
+</script>
+
+</body>
+</html>
