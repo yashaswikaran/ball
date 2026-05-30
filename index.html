@@ -1,823 +1,900 @@
 <!DOCTYPE html>
 <html lang="en">
 <head>
-<meta charset="UTF-8">
-<meta name="viewport" content="width=device-width, initial-scale=1.0, user-scalable=no">
-<title>🌙 My Moon Universe ✨ Prom Proposal</title>
-
-<style>
-    * {
-        margin: 0;
-        padding: 0;
-        box-sizing: border-box;
-        user-select: none;
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0, user-scalable=yes">
+  <title>Red Velvet Cake - Laddoo 💕</title>
+  <script type="importmap">
+    {
+      "imports": {
+        "three": "https://unpkg.com/three@0.128.0/build/three.module.js",
+        "three/addons/": "https://unpkg.com/three@0.128.0/examples/jsm/"
+      }
     }
-
+  </script>
+  <style>
+    * { margin: 0; padding: 0; box-sizing: border-box; }
+    
     body {
-        min-height: 100vh;
-        font-family: 'Arial', 'Segoe UI', 'Poppins', cursive, sans-serif;
-        background: radial-gradient(ellipse at center, #0a0a2a 0%, #030318 50%, #000010 100%);
-        color: #fff;
-        text-align: center;
-        display: flex;
-        justify-content: center;
-        align-items: center;
-        position: relative;
-        overflow-x: hidden;
+      overflow: hidden;
+      font-family: 'Segoe UI', 'Poppins', cursive;
+      background: radial-gradient(circle at center, #1a0a1a 0%, #0a0a14 100%);
     }
-
-    /* Stars background */
-    .stars {
-        position: fixed;
-        top: 0;
-        left: 0;
-        width: 100%;
-        height: 100%;
-        pointer-events: none;
-        z-index: 0;
+    
+    #ui-overlay {
+      position: absolute;
+      top: 0;
+      left: 0;
+      width: 100%;
+      height: 100%;
+      pointer-events: none;
+      z-index: 10;
     }
-
-    .star {
-        position: absolute;
-        background: white;
-        border-radius: 50%;
-        animation: twinkle 3s infinite alternate;
+    
+    .title {
+      position: absolute;
+      top: 20px;
+      width: 100%;
+      text-align: center;
+      font-size: clamp(2rem, 5vw, 3.5rem);
+      font-weight: bold;
+      background: linear-gradient(45deg, #ff6b9d, #ffd700, #ff6b9d);
+      -webkit-background-clip: text;
+      -webkit-text-fill-color: transparent;
+      filter: drop-shadow(0 0 20px rgba(255,107,157,0.7));
+      animation: titleGlow 2s infinite alternate;
     }
-
-    @keyframes twinkle {
-        0% { opacity: 0.2; transform: scale(1); }
-        100% { opacity: 1; transform: scale(1.2); }
+    
+    @keyframes titleGlow {
+      0% { filter: drop-shadow(0 0 15px rgba(255,107,157,0.5)); }
+      100% { filter: drop-shadow(0 0 35px rgba(255,215,0,0.8)); }
     }
-
-    /* Floating moons and planets */
-    .moon-bg {
-        position: fixed;
-        top: 0;
-        left: 0;
-        width: 100%;
-        height: 100%;
-        pointer-events: none;
-        z-index: 0;
-        overflow: hidden;
+    
+    .subtitle {
+      position: absolute;
+      top: 85px;
+      width: 100%;
+      text-align: center;
+      color: #ffe0e0;
+      font-size: 1rem;
+      letter-spacing: 2px;
     }
-
-    .floating-moon {
-        position: absolute;
-        animation: floatOrbit 12s linear infinite;
-        font-size: 30px;
-        opacity: 0.4;
+    
+    .info-panel {
+      position: absolute;
+      bottom: 30px;
+      left: 50%;
+      transform: translateX(-50%);
+      background: rgba(0,0,0,0.8);
+      backdrop-filter: blur(20px);
+      padding: 15px 25px;
+      border-radius: 50px;
+      color: #ffd4d4;
+      font-size: 0.95rem;
+      font-weight: bold;
+      border: 1px solid rgba(255,150,180,0.5);
+      pointer-events: all;
+      display: flex;
+      gap: 15px;
+      align-items: center;
+      flex-wrap: wrap;
+      justify-content: center;
+      box-shadow: 0 10px 30px rgba(0,0,0,0.6);
     }
-
-    @keyframes floatOrbit {
-        0% {
-            transform: translateY(100vh) rotate(0deg);
-            opacity: 0;
-        }
-        10% {
-            opacity: 0.5;
-        }
-        90% {
-            opacity: 0.5;
-        }
-        100% {
-            transform: translateY(-20vh) rotate(360deg);
-            opacity: 0;
-        }
+    
+    .candle-status {
+      display: flex;
+      align-items: center;
+      gap: 8px;
+      background: rgba(255,255,255,0.1);
+      padding: 8px 18px;
+      border-radius: 25px;
     }
-
-    .planet {
-        position: absolute;
-        border-radius: 50%;
-        background: radial-gradient(circle at 30% 30%, rgba(255,200,150,0.3), rgba(255,100,100,0.1));
-        animation: planetRotate 20s linear infinite;
+    
+    .btn {
+      border: none;
+      color: white;
+      padding: 10px 20px;
+      border-radius: 25px;
+      font-size: 0.95rem;
+      cursor: pointer;
+      font-weight: bold;
+      pointer-events: all;
+      transition: all 0.3s;
+      box-shadow: 0 4px 15px rgba(255,77,109,0.4);
+      white-space: nowrap;
     }
-
-    @keyframes planetRotate {
-        0% { transform: rotate(0deg); }
-        100% { transform: rotate(360deg); }
+    
+    .btn:hover:not(:disabled) {
+      transform: scale(1.05);
     }
-
-    /* Shooting stars */
-    .shooting-star {
-        position: absolute;
-        width: 2px;
-        height: 2px;
-        background: linear-gradient(135deg, white, #ffd700);
-        animation: shoot 3s linear infinite;
-        opacity: 0;
+    
+    .btn:disabled {
+      opacity: 0.4;
+      cursor: not-allowed;
+      transform: none;
     }
-
-    @keyframes shoot {
-        0% {
-            transform: translateX(0) translateY(0);
-            opacity: 0;
-        }
-        10% {
-            opacity: 1;
-        }
-        90% {
-            opacity: 1;
-        }
-        100% {
-            transform: translateX(-300px) translateY(200px);
-            opacity: 0;
-        }
+    
+    .slice-btn {
+      background: linear-gradient(135deg, #ffd700, #ff8c00);
+      color: #4a0000;
     }
-
-    /* Main container */
-    .container {
-        position: relative;
-        z-index: 10;
-        background: rgba(10, 5, 30, 0.6);
-        backdrop-filter: blur(12px);
-        border-radius: 60px;
-        padding: 30px;
-        margin: 20px;
-        box-shadow: 0 20px 50px rgba(0, 0, 0, 0.5), 0 0 0 2px rgba(255, 200, 150, 0.2), 0 0 30px rgba(100, 50, 150, 0.3);
-        animation: cosmicGlow 3s infinite;
+    
+    .reset-btn {
+      background: linear-gradient(135deg, #666, #444);
     }
-
-    @keyframes cosmicGlow {
-        0%, 100% {
-            box-shadow: 0 20px 50px rgba(0, 0, 0, 0.5), 0 0 0 2px rgba(255, 200, 150, 0.2), 0 0 30px rgba(100, 50, 150, 0.3);
-        }
-        50% {
-            box-shadow: 0 20px 50px rgba(0, 0, 0, 0.5), 0 0 0 3px rgba(255, 200, 150, 0.5), 0 0 50px rgba(150, 80, 200, 0.5);
-        }
+    
+    .celebration-msg {
+      position: absolute;
+      top: 45%;
+      left: 50%;
+      transform: translate(-50%, -50%);
+      font-size: 2rem;
+      color: white;
+      text-shadow: 0 0 25px #ff6b9d;
+      pointer-events: none;
+      opacity: 0;
+      transition: all 0.5s;
+      text-align: center;
+      z-index: 20;
     }
-
-    h1 {
-        font-size: 2.2rem;
-        background: linear-gradient(135deg, #c9a9e6, #ffb7d2, #ffd700);
-        -webkit-background-clip: text;
-        background-clip: text;
-        color: transparent;
-        margin-bottom: 20px;
-        animation: titleFloat 3s ease-in-out infinite;
-        letter-spacing: 2px;
+    
+    .celebration-msg.show {
+      opacity: 1;
+      animation: popIn 0.5s ease-out;
     }
-
-    @keyframes titleFloat {
-        0%, 100% { transform: translateY(0px); }
-        50% { transform: translateY(-5px); }
+    
+    @keyframes popIn {
+      0% { transform: translate(-50%, -50%) scale(0); opacity: 0; }
+      70% { transform: translate(-50%, -50%) scale(1.1); }
+      100% { transform: translate(-50%, -50%) scale(1); opacity: 1; }
     }
-
-    .moon-nickname {
-        font-size: 1rem;
-        color: #ffd700;
-        margin-top: -10px;
-        margin-bottom: 15px;
-        animation: pulseGold 2s infinite;
+    
+    .slice-guide {
+      position: absolute;
+      pointer-events: none;
+      border: 2px dashed rgba(255,215,0,0.7);
+      border-radius: 50%;
+      background: rgba(255,107,157,0.1);
+      display: none;
+      z-index: 5;
     }
-
-    @keyframes pulseGold {
-        0%, 100% { text-shadow: 0 0 5px #ffd700; opacity: 0.8; }
-        50% { text-shadow: 0 0 20px #ffd700; opacity: 1; }
-    }
-
-    /* Puzzle grid - seamless */
-    #puzzle {
-        width: 350px;
-        height: 350px;
-        margin: 20px auto;
-        display: grid;
-        grid-template-columns: repeat(3, 1fr);
-        gap: 0px;
-        background: rgba(20, 10, 40, 0.5);
-        border-radius: 25px;
-        box-shadow: 0 10px 40px rgba(0, 0, 0, 0.5), inset 0 0 20px rgba(255, 200, 150, 0.1);
-        overflow: hidden;
-        position: relative;
-        border: 1px solid rgba(255, 215, 0, 0.3);
-    }
-
-    .tile {
-        background: linear-gradient(135deg, #1a1a3e, #0f0f2a);
-        cursor: pointer;
-        transition: all 0.3s cubic-bezier(0.34, 1.2, 0.64, 1);
-        position: relative;
-        overflow: hidden;
-        border: none;
-        margin: 0;
-        padding: 0;
-    }
-
-    /* Crescent moon symbol before reveal */
-    .tile::before {
-        content: "🌙";
-        position: absolute;
-        top: 50%;
-        left: 50%;
-        transform: translate(-50%, -50%);
-        font-size: 28px;
-        color: #ffd700;
-        text-shadow: 0 0 10px rgba(255, 215, 0, 0.5);
-        transition: all 0.3s;
-        pointer-events: none;
-        z-index: 2;
-    }
-
-    /* Hover effect on unrevealed tiles */
-    .tile:not(.revealed):hover {
-        background: linear-gradient(135deg, #2a2a5e, #1a1a4e);
-        transform: scale(1.02);
-        z-index: 5;
-        box-shadow: 0 0 20px rgba(255, 215, 0, 0.3);
-    }
-
-    .tile:not(.revealed):hover::before {
-        transform: translate(-50%, -50%) scale(1.2);
-        content: "🌕";
-        color: #ffea80;
-    }
-
-    /* Revealed tile */
-    .tile.revealed {
-        animation: tileReveal 0.4s cubic-bezier(0.34, 1.2, 0.64, 1);
-        background-color: transparent;
-        z-index: 1;
-    }
-
-    .tile.revealed::before {
-        display: none;
-    }
-
-    @keyframes tileReveal {
-        0% {
-            transform: scale(0.8);
-            opacity: 0;
-            filter: blur(2px);
-        }
-        50% {
-            transform: scale(1.03);
-        }
-        100% {
-            transform: scale(1);
-            opacity: 1;
-            filter: blur(0);
-        }
-    }
-
-    /* Progress bar - moon themed */
-    .progress-container {
-        margin: 20px auto;
-        width: 300px;
-    }
-
-    .progress-text {
-        font-size: 14px;
-        color: #ffd700;
-        margin-bottom: 8px;
-        letter-spacing: 1px;
-        text-shadow: 0 0 5px #ffd700;
-    }
-
-    .progress-bar {
-        width: 100%;
-        height: 8px;
-        background: rgba(255, 215, 0, 0.2);
-        border-radius: 10px;
-        overflow: hidden;
-    }
-
-    .progress-fill {
-        height: 100%;
-        background: linear-gradient(90deg, #ffd700, #c9a9e6, #ffd700);
-        width: 0%;
-        transition: width 0.5s ease;
-        border-radius: 10px;
-        animation: shimmer 2s infinite;
-    }
-
-    @keyframes shimmer {
-        0% { opacity: 1; background-position: 0% 50%; }
-        50% { opacity: 0.8; }
-        100% { opacity: 1; background-position: 100% 50%; }
-    }
-
-    /* Message styling - moon universe theme */
-    #message {
-        opacity: 0;
-        margin-top: 25px;
-        font-size: 24px;
-        transition: all 0.8s cubic-bezier(0.34, 1.2, 0.64, 1);
-        transform: translateY(30px) scale(0.9);
-        background: linear-gradient(135deg, rgba(20, 10, 50, 0.9), rgba(10, 5, 30, 0.9));
-        padding: 25px;
-        border-radius: 50px;
-        backdrop-filter: blur(8px);
-        border: 1px solid rgba(255, 215, 0, 0.3);
-    }
-
-    #message.show {
-        opacity: 1;
-        transform: translateY(0) scale(1);
-        animation: messageGlow 1s ease;
-    }
-
-    @keyframes messageGlow {
-        0% { box-shadow: 0 0 0 rgba(255, 215, 0, 0); }
-        100% { box-shadow: 0 0 40px rgba(255, 215, 0, 0.3); }
-    }
-
-    .message-text {
-        font-size: 20px;
-        margin-bottom: 15px;
-        color: #ffd700;
-    }
-
-    .prom-question {
-        font-size: 26px;
-        font-weight: bold;
-        background: linear-gradient(135deg, #ffd700, #ffb7d2, #c9a9e6);
-        -webkit-background-clip: text;
-        background-clip: text;
-        color: transparent;
-        margin-top: 10px;
-        animation: questionPulse 2s infinite;
-    }
-
-    @keyframes questionPulse {
-        0%, 100% { transform: scale(1); }
-        50% { transform: scale(1.03); }
-    }
-
-    /* Buttons styling - cosmic */
-    .button-group {
-        margin-top: 20px;
-        display: flex;
-        gap: 20px;
-        justify-content: center;
-    }
-
-    .prom-btn {
-        padding: 12px 30px;
-        font-size: 18px;
-        font-weight: bold;
-        border: none;
-        border-radius: 50px;
-        cursor: pointer;
-        transition: all 0.3s ease;
-        font-family: inherit;
-        position: relative;
-        overflow: hidden;
-    }
-
-    .prom-btn::before {
-        content: '';
-        position: absolute;
-        top: 50%;
-        left: 50%;
-        width: 0;
-        height: 0;
-        border-radius: 50%;
-        background: rgba(255, 255, 255, 0.3);
-        transform: translate(-50%, -50%);
-        transition: width 0.6s, height 0.6s;
-    }
-
-    .prom-btn:hover::before {
-        width: 300px;
-        height: 300px;
-    }
-
-    .btn-yes {
-        background: linear-gradient(135deg, #ffd700, #ffaa00);
-        color: #1a0a2e;
-        box-shadow: 0 5px 20px rgba(255, 215, 0, 0.4);
-    }
-
-    .btn-yes:hover {
-        transform: scale(1.05) translateY(-3px);
-        box-shadow: 0 8px 30px rgba(255, 215, 0, 0.6);
-    }
-
-    .btn-no {
-        background: linear-gradient(135deg, #2a2a5e, #1a1a4e);
-        color: #c9a9e6;
-        box-shadow: 0 5px 15px rgba(0, 0, 0, 0.3);
-        border: 1px solid rgba(255, 215, 0, 0.3);
-    }
-
-    .btn-no:hover {
-        transform: scale(1.05) translateY(-3px);
-        background: linear-gradient(135deg, #3a3a6e, #2a2a5e);
-    }
-
-    /* Cosmic effects */
-    .ripple-moon {
-        position: fixed;
-        border-radius: 50%;
-        background: radial-gradient(circle, #ffd700, #c9a9e6, transparent);
-        pointer-events: none;
-        animation: cosmicRipple 0.8s ease-out forwards;
-        z-index: 1000;
-    }
-
-    @keyframes cosmicRipple {
-        0% {
-            transform: scale(0);
-            opacity: 0.8;
-        }
-        100% {
-            transform: scale(15);
-            opacity: 0;
-        }
-    }
-
-    .moon-dust {
-        position: fixed;
-        width: 4px;
-        height: 4px;
-        background: radial-gradient(circle, #ffd700, #ffaa00);
-        border-radius: 50%;
-        pointer-events: none;
-        z-index: 1000;
-        animation: dustFloat 1s ease-out forwards;
-    }
-
-    @keyframes dustFloat {
-        0% {
-            transform: translateY(0) scale(1);
-            opacity: 1;
-        }
-        100% {
-            transform: translateY(-50px) scale(0);
-            opacity: 0;
-        }
-    }
-
-    @media (max-width: 500px) {
-        #puzzle {
-            width: 280px;
-            height: 280px;
-        }
-        h1 {
-            font-size: 1.6rem;
-        }
-        .message-text {
-            font-size: 16px;
-        }
-        .prom-question {
-            font-size: 20px;
-        }
-    }
-</style>
-
+  </style>
 </head>
 <body>
-
-<div class="stars" id="stars"></div>
-<div class="moon-bg" id="moonBg"></div>
-
-<div class="container">
-    <h1>🌙 To My Moon  🌙</h1>
-    <div class="moon-nickname">✨ my everything in the cosmos ✨</div>
-
-    <div id="puzzle"></div>
-
-    <div class="progress-container">
-        <div class="progress-text" id="progressText">🌙 0/9 pieces to reveal our universe 🌙</div>
-        <div class="progress-bar">
-            <div class="progress-fill" id="progressFill"></div>
-        </div>
+  <div id="ui-overlay">
+    <div class="title">🎂 Happy Birthday Laddoo! 🎂</div>
+    <div class="subtitle">✨ Red Velvet Dream Cake ✨</div>
+    
+    <div class="celebration-msg" id="celebrationMsg"></div>
+    
+    <div class="info-panel">
+      <div class="candle-status">
+        <span>🕯️</span>
+        <span id="candleCount">5 candles lit</span>
+      </div>
+      <button class="btn slice-btn" id="sliceModeBtn" disabled>🔪 Blow candles first</button>
+      <button class="btn reset-btn" id="resetBtn">🔄 Reset Cake</button>
     </div>
-
-    <div id="message">
-        <div class="message-text">
-            🌕 This is our first picture together 💫
-        </div>
-        <div class="prom-question">
-            🌙 My Moon, will you go to prom with me? 🌙
-        </div>
-        <div class="button-group">
-            <button class="prom-btn btn-yes" id="yesBtn">🌕 YES! To the moon & back 🌕</button>
-            <button class="prom-btn btn-no" id="noBtn">🌙 ...impossible to say no 🌙</button>
-        </div>
-    </div>
-</div>
-
-<script>
-const puzzle = document.getElementById("puzzle");
-const message = document.getElementById("message");
-const progressText = document.getElementById("progressText");
-const progressFill = document.getElementById("progressFill");
-
-const SIZE = 3;
-let revealed = 0;
-
-// ============================================
-// IMPORTANT: Put YOUR image name here!
-// Example: 'our-photo.jpg' or 'moon-memory.png'
-// ============================================
-const imageUrl = "your-image.jpeg"; // 🔴 CHANGE THIS to your image filename!
-
-// Create stars background
-function createStars() {
-    const starsContainer = document.getElementById("stars");
-    for (let i = 0; i < 200; i++) {
-        const star = document.createElement("div");
-        star.classList.add("star");
-        star.style.left = Math.random() * 100 + "%";
-        star.style.top = Math.random() * 100 + "%";
-        star.style.width = Math.random() * 3 + 1 + "px";
-        star.style.height = star.style.width;
-        star.style.animationDelay = Math.random() * 3 + "s";
-        star.style.animationDuration = Math.random() * 2 + 1 + "s";
-        starsContainer.appendChild(star);
-    }
-}
-
-// Create floating moons and planets
-function createFloatingMoons() {
-    const moonBg = document.getElementById("moonBg");
-    const moons = ['🌙', '🌕', '🌖', '🌗', '🌘', '🌑', '✨', '⭐', '🪐', '🌍'];
     
-    for (let i = 0; i < 30; i++) {
-        const moon = document.createElement("div");
-        moon.classList.add("floating-moon");
-        moon.textContent = moons[Math.floor(Math.random() * moons.length)];
-        moon.style.left = Math.random() * 100 + "%";
-        moon.style.animationDuration = Math.random() * 10 + 8 + "s";
-        moon.style.animationDelay = Math.random() * 10 + "s";
-        moon.style.fontSize = Math.random() * 25 + 15 + "px";
-        moon.style.opacity = Math.random() * 0.3 + 0.2;
-        moonBg.appendChild(moon);
-    }
+    <div class="slice-guide" id="sliceGuide"></div>
+  </div>
+
+  <script type="module">
+    import * as THREE from 'three';
+    import { OrbitControls } from 'three/addons/controls/OrbitControls.js';
+    import { CSS2DRenderer, CSS2DObject } from 'three/addons/renderers/CSS2DRenderer.js';
+
+    // ============ SCENE SETUP ============
+    const scene = new THREE.Scene();
+    scene.background = new THREE.Color(0x1a0a2e);
+
+    const camera = new THREE.PerspectiveCamera(45, window.innerWidth / window.innerHeight, 0.1, 50);
+    camera.position.set(4, 3.5, 6);
+    camera.lookAt(0, 0.6, 0);
+
+    const renderer = new THREE.WebGLRenderer({ antialias: true });
+    renderer.setSize(window.innerWidth, window.innerHeight);
+    renderer.shadowMap.enabled = true;
+    renderer.shadowMap.type = THREE.PCFSoftShadowMap;
+    renderer.setClearColor(0x1a0a2e);
+    document.body.appendChild(renderer.domElement);
+
+    const labelRenderer = new CSS2DRenderer();
+    labelRenderer.setSize(window.innerWidth, window.innerHeight);
+    labelRenderer.domElement.style.position = 'absolute';
+    labelRenderer.domElement.style.top = '0';
+    labelRenderer.domElement.style.pointerEvents = 'none';
+    document.body.appendChild(labelRenderer.domElement);
+
+    const controls = new OrbitControls(camera, renderer.domElement);
+    controls.enableDamping = true;
+    controls.dampingFactor = 0.08;
+    controls.target.set(0, 0.7, 0);
+    controls.maxPolarAngle = Math.PI / 2.1;
+    controls.minDistance = 3.5;
+    controls.maxDistance = 10;
+    controls.update();
+
+    // ============ LIGHTING ============
+    const ambientLight = new THREE.AmbientLight(0xffffff, 0.6);
+    scene.add(ambientLight);
     
-    // Add planets
-    for (let i = 0; i < 8; i++) {
-        const planet = document.createElement("div");
-        planet.classList.add("planet");
-        planet.style.left = Math.random() * 100 + "%";
-        planet.style.top = Math.random() * 100 + "%";
-        planet.style.width = Math.random() * 60 + 20 + "px";
-        planet.style.height = planet.style.width;
-        planet.style.animationDuration = Math.random() * 30 + 20 + "s";
-        planet.style.animationDelay = Math.random() * 10 + "s";
-        moonBg.appendChild(planet);
-    }
-}
-
-// Shooting stars
-function createShootingStars() {
-    const moonBg = document.getElementById("moonBg");
-    setInterval(() => {
-        const star = document.createElement("div");
-        star.classList.add("shooting-star");
-        star.style.left = Math.random() * 80 + 10 + "%";
-        star.style.top = Math.random() * 30 + "%";
-        star.style.animation = "shoot 2s linear forwards";
-        moonBg.appendChild(star);
-        setTimeout(() => star.remove(), 2000);
-    }, 4000);
-}
-
-// Update progress
-function updateProgress() {
-    const percent = (revealed / (SIZE * SIZE)) * 100;
-    progressFill.style.width = percent + "%";
+    const dirLight = new THREE.DirectionalLight(0xffeedd, 1);
+    dirLight.position.set(5, 8, 5);
+    dirLight.castShadow = true;
+    dirLight.shadow.mapSize.width = 2048;
+    dirLight.shadow.mapSize.height = 2048;
+    scene.add(dirLight);
     
-    const moonEmojis = ['🌙', '🌕', '🌖', '🌗', '🌘'];
-    const moonIndex = Math.floor(revealed / 2) % moonEmojis.length;
+    const pointLight1 = new THREE.PointLight(0xff8c94, 0.8, 10);
+    pointLight1.position.set(-3, 3, 3);
+    scene.add(pointLight1);
     
-    if (revealed === SIZE * SIZE) {
-        progressText.innerHTML = "🌕✨ All pieces revealed! Our universe is complete ✨🌕";
-    } else {
-        progressText.innerHTML = `${moonEmojis[moonIndex]} ${revealed}/${SIZE * SIZE} pieces - revealing our galaxy ${moonEmojis[moonIndex]}`;
-    }
-}
+    const pointLight2 = new THREE.PointLight(0xffd700, 0.6, 8);
+    pointLight2.position.set(3, 2, -2);
+    scene.add(pointLight2);
 
-// Cosmic effect on click
-function createCosmicEffect(x, y) {
-    const ripple = document.createElement("div");
-    ripple.classList.add("ripple-moon");
-    ripple.style.left = x - 20 + "px";
-    ripple.style.top = y - 20 + "px";
-    ripple.style.width = "40px";
-    ripple.style.height = "40px";
-    document.body.appendChild(ripple);
-    setTimeout(() => ripple.remove(), 800);
+    // ============ STARS ============
+    const starsGeo = new THREE.BufferGeometry();
+    const starsPos = new Float32Array(800 * 3);
+    for (let i = 0; i < 800 * 3; i += 3) {
+      starsPos[i] = (Math.random() - 0.5) * 25;
+      starsPos[i+1] = (Math.random() - 0.5) * 15 + 5;
+      starsPos[i+2] = (Math.random() - 0.5) * 20;
+    }
+    starsGeo.setAttribute('position', new THREE.BufferAttribute(starsPos, 3));
+    const stars = new THREE.Points(starsGeo, new THREE.PointsMaterial({
+      color: 0xffd4e0, size: 0.06, blending: THREE.AdditiveBlending, transparent: true, opacity: 0.8
+    }));
+    scene.add(stars);
+
+    // ============ CAKE ============
+    const cakeGroup = new THREE.Group();
+    scene.add(cakeGroup);
+
+    // Stand/Plate
+    const standGeo = new THREE.CylinderGeometry(1.5, 1.6, 0.2, 64);
+    const standMat = new THREE.MeshStandardMaterial({ 
+      color: '#faf0e6', 
+      roughness: 0.3, 
+      metalness: 0.5,
+    });
+    const stand = new THREE.Mesh(standGeo, standMat);
+    stand.position.y = -0.05;
+    stand.receiveShadow = true;
+    stand.castShadow = true;
+    cakeGroup.add(stand);
+
+    // Gold rim
+    const rimGeo = new THREE.TorusGeometry(1.55, 0.05, 16, 64);
+    const rimMat = new THREE.MeshStandardMaterial({ 
+      color: '#ffd700', 
+      roughness: 0.2, 
+      metalness: 0.9,
+      emissive: new THREE.Color(0x221100)
+    });
+    const rim = new THREE.Mesh(rimGeo, rimMat);
+    rim.rotation.x = Math.PI / 2;
+    rim.position.y = 0.05;
+    cakeGroup.add(rim);
+
+    // Main cake body - RED VELVET
+    const cakeBodyGeo = new THREE.CylinderGeometry(1.3, 1.35, 0.8, 64);
+    const cakeBodyMat = new THREE.MeshStandardMaterial({ 
+      color: '#8B0000',
+      roughness: 0.5,
+      metalness: 0.1,
+    });
+    const cakeBody = new THREE.Mesh(cakeBodyGeo, cakeBodyMat);
+    cakeBody.position.y = 0.45;
+    cakeBody.castShadow = true;
+    cakeBody.receiveShadow = true;
+    cakeBody.name = 'cakeBody';
+    cakeGroup.add(cakeBody);
+
+    // Red velvet texture - small darker spots
+    for (let i = 0; i < 50; i++) {
+      const spotGeo = new THREE.SphereGeometry(0.03, 4, 4);
+      const spotMat = new THREE.MeshStandardMaterial({ 
+        color: Math.random() > 0.5 ? '#5a0000' : '#a52a2a',
+        roughness: 0.3
+      });
+      const spot = new THREE.Mesh(spotGeo, spotMat);
+      const angle = Math.random() * Math.PI * 2;
+      const r = 1.3 * (0.3 + Math.random() * 0.7);
+      spot.position.set(
+        Math.cos(angle) * r,
+        0.2 + Math.random() * 0.5,
+        Math.sin(angle) * r
+      );
+      cakeGroup.add(spot);
+    }
+
+    // Cream cheese frosting on top
+    const frostingTopGeo = new THREE.CylinderGeometry(1.32, 1.32, 0.1, 64);
+    const frostingMat = new THREE.MeshStandardMaterial({ 
+      color: '#FFF5EE',
+      roughness: 0.3,
+      metalness: 0.05,
+    });
+    const frostingTop = new THREE.Mesh(frostingTopGeo, frostingMat);
+    frostingTop.position.y = 0.87;
+    frostingTop.castShadow = true;
+    frostingTop.receiveShadow = true;
+    frostingTop.name = 'frostingTop';
+    cakeGroup.add(frostingTop);
+
+    // Frosting ring decoration
+    const frostingRingGeo = new THREE.TorusGeometry(1.3, 0.07, 16, 64);
+    const frostingRing = new THREE.Mesh(frostingRingGeo, frostingMat);
+    frostingRing.rotation.x = Math.PI / 2;
+    frostingRing.position.y = 0.9;
+    frostingRing.castShadow = true;
+    frostingRing.name = 'frostingRing';
+    cakeGroup.add(frostingRing);
+
+    // Cream cheese drips on sides
+    for (let i = 0; i < 20; i++) {
+      const dripHeight = 0.1 + Math.random() * 0.3;
+      const dripGeo = new THREE.CylinderGeometry(0.03, 0.06, dripHeight, 8);
+      const drip = new THREE.Mesh(dripGeo, frostingMat);
+      const angle = (i / 20) * Math.PI * 2;
+      drip.position.set(
+        Math.cos(angle) * 1.28,
+        0.8 - dripHeight/2,
+        Math.sin(angle) * 1.28
+      );
+      drip.rotation.z = (Math.random() - 0.5) * 0.5;
+      drip.rotation.x = (Math.random() - 0.5) * 0.5;
+      drip.castShadow = true;
+      cakeGroup.add(drip);
+    }
+
+    // ============ CANDLES ============
+    const candles = [];
+    const flameGroups = [];
+    const flameLights = [];
     
-    // Moon dust particles
-    for (let i = 0; i < 10; i++) {
-        const dust = document.createElement("div");
-        dust.classList.add("moon-dust");
-        dust.style.left = x + (Math.random() - 0.5) * 40 + "px";
-        dust.style.top = y + (Math.random() - 0.5) * 40 + "px";
-        dust.style.animationDuration = Math.random() * 0.8 + 0.5 + "s";
-        document.body.appendChild(dust);
-        setTimeout(() => dust.remove(), 1000);
-    }
-}
-
-// Confetti - moon themed
-function createMoonConfetti() {
-    for (let i = 0; i < 120; i++) {
-        const confetti = document.createElement("div");
-        confetti.classList.add("confetti");
-        const moonShapes = ['🌙', '🌕', '✨', '⭐', '🌖', '💫'];
-        confetti.textContent = moonShapes[Math.floor(Math.random() * moonShapes.length)];
-        confetti.style.position = "fixed";
-        confetti.style.left = Math.random() * window.innerWidth + "px";
-        confetti.style.top = "-20px";
-        confetti.style.fontSize = Math.random() * 20 + 10 + "px";
-        confetti.style.animation = "fallConfetti 3s linear forwards";
-        confetti.style.pointerEvents = "none";
-        confetti.style.zIndex = "1000";
-        document.body.appendChild(confetti);
-        setTimeout(() => confetti.remove(), 3000);
-    }
-}
-
-// Add confetti animation style
-const style = document.createElement('style');
-style.textContent = `
-    @keyframes fallConfetti {
-        0% {
-            transform: translateY(0) rotate(0deg);
-            opacity: 1;
-        }
-        100% {
-            transform: translateY(100vh) rotate(720deg);
-            opacity: 0;
-        }
-    }
-`;
-document.head.appendChild(style);
-
-// Create puzzle
-function createPuzzle() {
-    puzzle.innerHTML = "";
-    const puzzleWidth = puzzle.clientWidth;
-    const puzzleHeight = puzzle.clientHeight;
-    const tileWidth = puzzleWidth / SIZE;
-    const tileHeight = puzzleHeight / SIZE;
-    
-    for (let i = 0; i < SIZE * SIZE; i++) {
-        const tile = document.createElement("div");
-        tile.classList.add("tile");
-        tile.dataset.index = i;
-        tile.style.width = `${tileWidth}px`;
-        tile.style.height = `${tileHeight}px`;
-        
-        tile.addEventListener("click", (e) => {
-            e.stopPropagation();
-            reveal(tile, e.clientX, e.clientY);
+    function createCandle(x, z) {
+      const candleGroup = new THREE.Group();
+      
+      // Candle stick
+      const stickGeo = new THREE.CylinderGeometry(0.08, 0.09, 0.5, 16);
+      const stickMat = new THREE.MeshStandardMaterial({ 
+        color: '#FFF0F5',
+        roughness: 0.4,
+      });
+      const stick = new THREE.Mesh(stickGeo, stickMat);
+      stick.position.y = 0.25;
+      stick.castShadow = true;
+      stick.name = 'candleStick';
+      candleGroup.add(stick);
+      
+      // Pink stripes
+      for (let i = 0; i < 4; i++) {
+        const stripeGeo = new THREE.TorusGeometry(0.085, 0.015, 8, 16);
+        const stripeMat = new THREE.MeshStandardMaterial({ 
+          color: '#FFB6C1',
+          roughness: 0.3,
         });
-        
-        puzzle.appendChild(tile);
+        const stripe = new THREE.Mesh(stripeGeo, stripeMat);
+        stripe.rotation.x = Math.PI / 2;
+        stripe.position.y = 0.1 + i * 0.12;
+        candleGroup.add(stripe);
+      }
+      
+      // Wick
+      const wickGeo = new THREE.CylinderGeometry(0.02, 0.025, 0.1, 8);
+      const wickMat = new THREE.MeshStandardMaterial({ color: '#2F1A0E' });
+      const wick = new THREE.Mesh(wickGeo, wickMat);
+      wick.position.y = 0.52;
+      wick.name = 'wick';
+      candleGroup.add(wick);
+      
+      // Flame
+      const flameGroup = new THREE.Group();
+      flameGroup.position.y = 0.6;
+      flameGroup.name = 'flameGroup';
+      
+      const flameCoreGeo = new THREE.ConeGeometry(0.07, 0.2, 8);
+      const flameCoreMat = new THREE.MeshStandardMaterial({ 
+        color: '#FFD700',
+        emissive: new THREE.Color('#FF8C00'),
+        roughness: 0.2
+      });
+      const flameCore = new THREE.Mesh(flameCoreGeo, flameCoreMat);
+      flameCore.name = 'flameCore';
+      flameGroup.add(flameCore);
+      
+      const flameOuterGeo = new THREE.ConeGeometry(0.1, 0.25, 8);
+      const flameOuterMat = new THREE.MeshStandardMaterial({ 
+        color: '#FFA500',
+        emissive: new THREE.Color('#FF4500'),
+        roughness: 0.3,
+        transparent: true,
+        opacity: 0.6
+      });
+      const flameOuter = new THREE.Mesh(flameOuterGeo, flameOuterMat);
+      flameOuter.position.y = -0.03;
+      flameOuter.name = 'flameOuter';
+      flameGroup.add(flameOuter);
+      
+      candleGroup.add(flameGroup);
+      
+      // Light
+      const light = new THREE.PointLight('#FFA500', 0.8, 3);
+      light.position.y = 0.6;
+      candleGroup.add(light);
+      
+      candleGroup.position.set(x, 0.95, z);
+      
+      return {
+        group: candleGroup,
+        flameGroup,
+        light,
+        isLit: true
+      };
     }
-}
 
-// Reveal tile
-function reveal(tile, clickX, clickY) {
-    if (tile.classList.contains("revealed")) return;
+    // Place 5 candles in a circle on top of cake
+    const radius = 0.5;
+    for (let i = 0; i < 5; i++) {
+      const angle = (i / 5) * Math.PI * 2 - Math.PI / 2;
+      const x = Math.cos(angle) * radius;
+      const z = Math.sin(angle) * radius;
+      const candle = createCandle(x, z);
+      cakeGroup.add(candle.group);
+      candles.push(candle);
+      flameGroups.push(candle.flameGroup);
+      flameLights.push(candle.light);
+    }
+
+    // ============ NAME LABEL ============
+    const nameDiv = document.createElement('div');
+    nameDiv.textContent = 'Laddoo';
+    nameDiv.style.fontSize = '32px';
+    nameDiv.style.fontWeight = 'bold';
+    nameDiv.style.color = '#FFF';
+    nameDiv.style.textShadow = '0 0 20px #FF6B9D, 0 0 40px #FFD700';
+    nameDiv.style.fontFamily = "'Poppins', cursive";
+    nameDiv.style.letterSpacing = '4px';
+    const nameLabel = new CSS2DObject(nameDiv);
+    nameLabel.position.set(0, 1.5, 1.2);
+    cakeGroup.add(nameLabel);
+
+    // Heart decorations
+    ['❤️', '💕', '💗', '💖', '💝'].forEach((emoji, i) => {
+      const div = document.createElement('div');
+      div.textContent = emoji;
+      div.style.fontSize = '20px';
+      const label = new CSS2DObject(div);
+      const angle = (i / 5) * Math.PI * 2;
+      label.position.set(Math.cos(angle) * 1.2, 1.1, Math.sin(angle) * 1.0);
+      cakeGroup.add(label);
+    });
+
+    // ============ INTERACTION ============
+    const raycaster = new THREE.Raycaster();
+    const mouse = new THREE.Vector2();
+    let sliceModeActive = false;
+    let isDragging = false;
+    let dragStart = null;
+    let dragStart3D = null;
+    let sliceCount = 0;
     
-    const index = parseInt(tile.dataset.index);
-    const row = Math.floor(index / SIZE);
-    const col = index % SIZE;
-    
-    const puzzleWidth = puzzle.clientWidth;
-    const puzzleHeight = puzzle.clientHeight;
-    const tileWidth = puzzleWidth / SIZE;
-    const tileHeight = puzzleHeight / SIZE;
-    
-    const bgX = col * tileWidth;
-    const bgY = row * tileHeight;
-    
-    tile.style.backgroundImage = `url('${imageUrl}')`;
-    tile.style.backgroundSize = `${puzzleWidth}px ${puzzleHeight}px`;
-    tile.style.backgroundPosition = `-${bgX}px -${bgY}px`;
-    tile.style.backgroundRepeat = "no-repeat";
-    tile.style.backgroundColor = "transparent";
-    
-    tile.classList.add("revealed");
-    revealed++;
-    
-    if (clickX && clickY) {
-        createCosmicEffect(clickX, clickY);
+    function updateUI() {
+      const litCount = candles.filter(c => c.isLit).length;
+      document.getElementById('candleCount').textContent = `${litCount} candle${litCount !== 1 ? 's' : ''} lit`;
+      
+      const sliceBtn = document.getElementById('sliceModeBtn');
+      if (litCount === 0 && !sliceModeActive) {
+        sliceBtn.disabled = false;
+        sliceBtn.textContent = '🔪 Slice the Cake!';
+        sliceBtn.style.background = 'linear-gradient(135deg, #ffd700, #ff6b00)';
+      } else if (litCount > 0 && !sliceModeActive) {
+        sliceBtn.disabled = true;
+        sliceBtn.textContent = '🔪 Blow candles first';
+        sliceBtn.style.background = 'linear-gradient(135deg, #ffd700, #ff8c00)';
+      }
     }
     
-    updateProgress();
-    
-    if (revealed === SIZE * SIZE) {
-        setTimeout(() => {
-            message.classList.add("show");
-            createMoonConfetti();
-            for (let i = 0; i < 3; i++) {
-                setTimeout(() => createMoonConfetti(), i * 300);
+    function onCandleClick(event) {
+      if (sliceModeActive) return;
+      
+      const rect = renderer.domElement.getBoundingClientRect();
+      mouse.x = ((event.clientX - rect.left) / rect.width) * 2 - 1;
+      mouse.y = -((event.clientY - rect.top) / rect.height) * 2 + 1;
+      
+      raycaster.setFromCamera(mouse, camera);
+      
+      // Get all candle meshes
+      const allObjects = [];
+      candles.forEach(candle => {
+        candle.group.traverse(child => {
+          if (child.isMesh) allObjects.push(child);
+        });
+      });
+      
+      const intersects = raycaster.intersectObjects(allObjects);
+      
+      if (intersects.length > 0) {
+        let obj = intersects[0].object;
+        
+        // Find which candle
+        for (let candle of candles) {
+          let parent = obj;
+          while (parent) {
+            if (parent === candle.group && candle.isLit) {
+              blowOutCandle(candle);
+              return;
             }
-        }, 500);
+            parent = parent.parent;
+          }
+        }
+      }
     }
-}
-
-// Handle resize
-let resizeTimeout;
-window.addEventListener("resize", () => {
-    clearTimeout(resizeTimeout);
-    resizeTimeout = setTimeout(() => {
-        if (puzzle.clientWidth > 0) {
-            const puzzleWidth = puzzle.clientWidth;
-            const puzzleHeight = puzzle.clientHeight;
-            const tileWidth = puzzleWidth / SIZE;
-            const tileHeight = puzzleHeight / SIZE;
-            
-            const tiles = document.querySelectorAll(".tile");
-            tiles.forEach((tile, idx) => {
-                tile.style.width = `${tileWidth}px`;
-                tile.style.height = `${tileHeight}px`;
-                
-                if (tile.classList.contains("revealed")) {
-                    const row = Math.floor(idx / SIZE);
-                    const col = idx % SIZE;
-                    const bgX = col * tileWidth;
-                    const bgY = row * tileHeight;
-                    tile.style.backgroundSize = `${puzzleWidth}px ${puzzleHeight}px`;
-                    tile.style.backgroundPosition = `-${bgX}px -${bgY}px`;
-                }
+    
+    function blowOutCandle(candle) {
+      candle.isLit = false;
+      candle.flameGroup.visible = false;
+      candle.light.intensity = 0;
+      
+      // Smoke particles
+      const pos = candle.group.position.clone();
+      pos.y += 1.5;
+      createSmoke(pos);
+      
+      updateUI();
+      
+      if (candles.filter(c => c.isLit).length === 0) {
+        showMessage('🎉 All candles blown! Time to slice! 🔪');
+      }
+    }
+    
+    function createSmoke(position) {
+      for (let i = 0; i < 10; i++) {
+        const geo = new THREE.SphereGeometry(0.03, 4, 4);
+        const mat = new THREE.MeshBasicMaterial({ 
+          color: '#cccccc', 
+          transparent: true, 
+          opacity: 0.6 
+        });
+        const particle = new THREE.Mesh(geo, mat);
+        particle.position.copy(position);
+        particle.position.x += (Math.random() - 0.5) * 0.3;
+        particle.position.z += (Math.random() - 0.5) * 0.3;
+        
+        const vel = new THREE.Vector3(
+          (Math.random() - 0.5) * 0.01,
+          Math.random() * 0.02 + 0.01,
+          (Math.random() - 0.5) * 0.01
+        );
+        
+        scene.add(particle);
+        
+        let life = 1;
+        function animate() {
+          life -= 0.02;
+          particle.position.add(vel);
+          particle.material.opacity = life * 0.6;
+          particle.scale.multiplyScalar(1.02);
+          
+          if (life > 0) {
+            requestAnimationFrame(animate);
+          } else {
+            scene.remove(particle);
+          }
+        }
+        animate();
+      }
+    }
+    
+    function getCakePoint(event) {
+      const rect = renderer.domElement.getBoundingClientRect();
+      mouse.x = ((event.clientX - rect.left) / rect.width) * 2 - 1;
+      mouse.y = -((event.clientY - rect.top) / rect.height) * 2 + 1;
+      
+      raycaster.setFromCamera(mouse, camera);
+      const intersects = raycaster.intersectObjects([cakeBody, frostingTop], false);
+      
+      if (intersects.length > 0) {
+        return intersects[0].point.clone();
+      }
+      return null;
+    }
+    
+    // Slice mode button
+    document.getElementById('sliceModeBtn').addEventListener('click', () => {
+      if (candles.filter(c => c.isLit).length > 0) return;
+      
+      sliceModeActive = !sliceModeActive;
+      const btn = document.getElementById('sliceModeBtn');
+      
+      if (sliceModeActive) {
+        btn.textContent = '🔪 Slice Mode ON - Drag on cake';
+        btn.style.background = 'linear-gradient(135deg, #00cc44, #008800)';
+        renderer.domElement.style.cursor = 'crosshair';
+        controls.enabled = false;
+      } else {
+        btn.textContent = '🔪 Slice the Cake!';
+        btn.style.background = 'linear-gradient(135deg, #ffd700, #ff6b00)';
+        renderer.domElement.style.cursor = 'default';
+        controls.enabled = true;
+      }
+    });
+    
+    // Mouse events for slicing
+    renderer.domElement.addEventListener('mousedown', (event) => {
+      if (!sliceModeActive || event.button !== 0) return;
+      
+      const point = getCakePoint(event);
+      if (point) {
+        isDragging = true;
+        dragStart = { x: event.clientX, y: event.clientY };
+        dragStart3D = point;
+        
+        document.getElementById('sliceGuide').style.display = 'block';
+        document.getElementById('sliceGuide').style.left = (event.clientX - 40) + 'px';
+        document.getElementById('sliceGuide').style.top = (event.clientY - 40) + 'px';
+        document.getElementById('sliceGuide').style.width = '80px';
+        document.getElementById('sliceGuide').style.height = '80px';
+      }
+    });
+    
+    window.addEventListener('mousemove', (event) => {
+      if (!isDragging || !sliceModeActive) return;
+      
+      const guide = document.getElementById('sliceGuide');
+      guide.style.left = Math.min(dragStart.x, event.clientX) - 30 + 'px';
+      guide.style.top = Math.min(dragStart.y, event.clientY) - 30 + 'px';
+      guide.style.width = Math.abs(event.clientX - dragStart.x) + 60 + 'px';
+      guide.style.height = Math.abs(event.clientY - dragStart.y) + 60 + 'px';
+    });
+    
+    window.addEventListener('mouseup', (event) => {
+      if (!isDragging || !sliceModeActive) {
+        isDragging = false;
+        return;
+      }
+      
+      isDragging = false;
+      document.getElementById('sliceGuide').style.display = 'none';
+      
+      const dist = Math.sqrt(
+        Math.pow(event.clientX - dragStart.x, 2) + 
+        Math.pow(event.clientY - dragStart.y, 2)
+      );
+      
+      if (dist > 50) {
+        const endPoint = getCakePoint(event);
+        if (endPoint && dragStart3D) {
+          sliceCount++;
+          createFlyingSlice(dragStart3D, endPoint);
+          createCutLine(dragStart3D, endPoint);
+          createParticles(dragStart3D, endPoint);
+          showMessage(`🍰 Slice #${sliceCount} for Laddoo! 💕`);
+          
+          if (sliceCount >= 3) {
+            sliceModeActive = false;
+            document.getElementById('sliceModeBtn').textContent = '🎂 Enjoy!';
+            document.getElementById('sliceModeBtn').disabled = true;
+            renderer.domElement.style.cursor = 'default';
+            controls.enabled = true;
+          }
+        }
+      }
+    });
+    
+    function createFlyingSlice(p1, p2) {
+      const center = new THREE.Vector3(0, 0.45, 0);
+      const d1 = new THREE.Vector3().subVectors(p1, center).normalize();
+      const d2 = new THREE.Vector3().subVectors(p2, center).normalize();
+      const midAngle = Math.atan2((d1.z + d2.z)/2, (d1.x + d2.x)/2);
+      
+      const shape = new THREE.Shape();
+      const r = 1.3;
+      const a1 = Math.atan2(d1.z, d1.x);
+      const a2 = Math.atan2(d2.z, d2.x);
+      
+      shape.moveTo(0, 0);
+      for (let i = 0; i <= 24; i++) {
+        const angle = a1 + (a2 - a1) * (i/24);
+        shape.lineTo(Math.cos(angle) * r, Math.sin(angle) * r);
+      }
+      shape.closePath();
+      
+      const geo = new THREE.ExtrudeGeometry(shape, {
+        steps: 1,
+        depth: 0.7,
+        bevelEnabled: true,
+        bevelThickness: 0.03,
+        bevelSize: 0.03,
+        bevelSegments: 3
+      });
+      
+      const slice = new THREE.Mesh(geo, new THREE.MeshStandardMaterial({
+        color: '#8B0000',
+        roughness: 0.5,
+        metalness: 0.1
+      }));
+      slice.rotation.x = -Math.PI/2;
+      slice.castShadow = true;
+      
+      const group = new THREE.Group();
+      group.add(slice);
+      group.position.set(Math.cos(midAngle) * 2, 0.5, Math.sin(midAngle) * 2 - 1);
+      
+      scene.add(group);
+      
+      let progress = 0;
+      function animate() {
+        progress += 0.01;
+        group.position.y += 0.02;
+        group.position.z -= 0.02;
+        group.rotation.y += 0.03;
+        
+        if (progress < 2) {
+          requestAnimationFrame(animate);
+        } else {
+          let fade = 0;
+          function fadeOut() {
+            fade += 0.05;
+            group.children.forEach(c => {
+              if (c.material) {
+                c.material.transparent = true;
+                c.material.opacity = 1 - fade;
+              }
             });
+            if (fade < 1) {
+              requestAnimationFrame(fadeOut);
+            } else {
+              scene.remove(group);
+            }
+          }
+          fadeOut();
         }
-    }, 100);
-});
-
-// Buttons
-function setupButtons() {
-    const yesBtn = document.getElementById("yesBtn");
-    const noBtn = document.getElementById("noBtn");
+      }
+      animate();
+    }
     
-    yesBtn.addEventListener("click", () => {
-        createMoonConfetti();
-        for (let i = 0; i < 5; i++) {
-            setTimeout(() => createMoonConfetti(), i * 200);
+    function createCutLine(p1, p2) {
+      const points = [
+        p1.clone().add(new THREE.Vector3(0, 0.02, 0)),
+        p2.clone().add(new THREE.Vector3(0, 0.02, 0))
+      ];
+      const geo = new THREE.BufferGeometry().setFromPoints(points);
+      const line = new THREE.Line(geo, new THREE.LineBasicMaterial({
+        color: '#FFD700',
+        transparent: true,
+        opacity: 0.8
+      }));
+      cakeGroup.add(line);
+      
+      let fade = 0;
+      function fadeLine() {
+        fade += 0.02;
+        line.material.opacity = 0.8 - fade;
+        if (fade < 0.8) {
+          requestAnimationFrame(fadeLine);
+        } else {
+          cakeGroup.remove(line);
         }
+      }
+      setTimeout(() => fadeLine(), 300);
+    }
+    
+    function createParticles(p1, p2) {
+      const mid = new THREE.Vector3().addVectors(p1, p2).multiplyScalar(0.5);
+      for (let i = 0; i < 20; i++) {
+        const geo = new THREE.SphereGeometry(0.04, 4, 4);
+        const mat = new THREE.MeshStandardMaterial({
+          color: Math.random() > 0.5 ? '#FF6B9D' : '#FFD700',
+          emissive: new THREE.Color(0x331100)
+        });
+        const particle = new THREE.Mesh(geo, mat);
+        particle.position.copy(mid).add(new THREE.Vector3(
+          (Math.random()-0.5)*0.5,
+          (Math.random()-0.5)*0.3,
+          (Math.random()-0.5)*0.5
+        ));
         
-        const celebrationMsg = document.createElement("div");
-        celebrationMsg.innerHTML = "🌕💖 YAY! To the moon & back! 💖🌙";
-        celebrationMsg.style.position = "fixed";
-        celebrationMsg.style.top = "50%";
-        celebrationMsg.style.left = "50%";
-        celebrationMsg.style.transform = "translate(-50%, -50%)";
-        celebrationMsg.style.background = "linear-gradient(135deg, #1a0a3e, #2a1a5e)";
-        celebrationMsg.style.color = "#ffd700";
-        celebrationMsg.style.padding = "25px 50px";
-        celebrationMsg.style.borderRadius = "60px";
-        celebrationMsg.style.fontSize = "28px";
-        celebrationMsg.style.fontWeight = "bold";
-        celebrationMsg.style.zIndex = "2000";
-        celebrationMsg.style.animation = "tileReveal 0.5s ease";
-        celebrationMsg.style.border = "2px solid #ffd700";
-        celebrationMsg.style.whiteSpace = "nowrap";
-        document.body.appendChild(celebrationMsg);
+        const vel = new THREE.Vector3(
+          (Math.random()-0.5)*0.04,
+          Math.random()*0.05,
+          (Math.random()-0.5)*0.04
+        );
         
-        setTimeout(() => celebrationMsg.remove(), 3000);
+        scene.add(particle);
         
-        noBtn.disabled = true;
-        noBtn.style.opacity = "0.5";
-        yesBtn.innerHTML = "🌕 MY MOON UNIVERSE FOREVER 🌕";
+        let life = 1.5;
+        function animate() {
+          life -= 0.03;
+          particle.position.add(vel);
+          vel.y -= 0.001;
+          if (life > 0) {
+            requestAnimationFrame(animate);
+          } else {
+            scene.remove(particle);
+          }
+        }
+        animate();
+      }
+    }
+    
+    function showMessage(msg) {
+      const el = document.getElementById('celebrationMsg');
+      el.textContent = msg;
+      el.classList.add('show');
+      setTimeout(() => el.classList.remove('show'), 2500);
+    }
+    
+    // Reset button
+    document.getElementById('resetBtn').addEventListener('click', () => {
+      candles.forEach(c => {
+        c.isLit = true;
+        c.flameGroup.visible = true;
+        c.light.intensity = 0.8;
+      });
+      
+      sliceModeActive = false;
+      sliceCount = 0;
+      document.getElementById('sliceModeBtn').disabled = true;
+      document.getElementById('sliceModeBtn').textContent = '🔪 Blow candles first';
+      document.getElementById('sliceModeBtn').style.background = 'linear-gradient(135deg, #ffd700, #ff8c00)';
+      renderer.domElement.style.cursor = 'default';
+      controls.enabled = true;
+      
+      // Remove slices and lines
+      const toRemove = [];
+      scene.traverse(child => {
+        if (child.isGroup && child !== cakeGroup && child.parent === scene) {
+          toRemove.push(child);
+        }
+        if (child.isLine && child.parent === cakeGroup) {
+          toRemove.push(child);
+        }
+      });
+      toRemove.forEach(obj => {
+        if (obj.parent) obj.parent.remove(obj);
+      });
+      
+      updateUI();
     });
     
-    noBtn.addEventListener("click", () => {
-        const playfulMsg = document.createElement("div");
-        playfulMsg.innerHTML = "🌙 But... you're my whole universe! The moon already said yes 🌙";
-        playfulMsg.style.position = "fixed";
-        playfulMsg.style.bottom = "30px";
-        playfulMsg.style.left = "50%";
-        playfulMsg.style.transform = "translateX(-50%)";
-        playfulMsg.style.background = "#2a1a5e";
-        playfulMsg.style.padding = "12px 24px";
-        playfulMsg.style.borderRadius = "40px";
-        playfulMsg.style.color = "#ffd700";
-        playfulMsg.style.fontWeight = "bold";
-        playfulMsg.style.zIndex = "1200";
-        playfulMsg.style.animation = "tileReveal 0.4s";
-        playfulMsg.style.whiteSpace = "nowrap";
-        playfulMsg.style.border = "1px solid #ffd700";
-        document.body.appendChild(playfulMsg);
-        
-        setTimeout(() => playfulMsg.remove(), 2500);
-        
-        noBtn.style.transform = "scale(0.95)";
-        setTimeout(() => {
-            noBtn.style.transform = "";
-        }, 200);
+    // Event listeners
+    renderer.domElement.addEventListener('click', onCandleClick);
+    updateUI();
+
+    // ============ ANIMATION ============
+    function animate() {
+      requestAnimationFrame(animate);
+      
+      stars.rotation.y += 0.0003;
+      
+      flameGroups.forEach((flame, i) => {
+        if (flame.visible) {
+          const s = 0.85 + Math.sin(Date.now()*0.02 + i)*0.2;
+          flame.scale.set(s, s, s);
+          if (flameLights[i]) {
+            flameLights[i].intensity = 0.6 + Math.sin(Date.now()*0.03 + i)*0.3;
+          }
+        }
+      });
+      
+      controls.update();
+      renderer.render(scene, camera);
+      labelRenderer.render(scene, camera);
+    }
+    
+    animate();
+    
+    window.addEventListener('resize', () => {
+      camera.aspect = window.innerWidth / window.innerHeight;
+      camera.updateProjectionMatrix();
+      renderer.setSize(window.innerWidth, window.innerHeight);
+      labelRenderer.setSize(window.innerWidth, window.innerHeight);
     });
-}
-
-// Initialize
-function init() {
-    createStars();
-    createFloatingMoons();
-    createShootingStars();
-    createPuzzle();
-    setupButtons();
-    updateProgress();
-}
-
-setTimeout(() => {
-    init();
-}, 100);
-</script>
-
+  </script>
 </body>
 </html>
