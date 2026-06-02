@@ -2,7 +2,7 @@
 <html lang="en">
 <head>
   <meta charset="UTF-8">
-  <meta name="viewport" content="width=device-width, initial-scale=1.0, user-scalable=yes">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0, user-scalable=no, maximum-scale=1.0, touch-action: manipulation">
   <title>Red Velvet Cake - Laddoo 💕</title>
   <script type="importmap">
     {
@@ -19,6 +19,10 @@
       overflow: hidden;
       font-family: 'Segoe UI', 'Poppins', cursive;
       background: radial-gradient(circle at center, #1a0a1a 0%, #0a0a14 100%);
+      touch-action: manipulation;
+      -webkit-touch-callout: none;
+      -webkit-user-select: none;
+      user-select: none;
     }
     
     #ui-overlay {
@@ -33,86 +37,91 @@
     
     .title {
       position: absolute;
-      top: 20px;
+      top: 15px;
       width: 100%;
       text-align: center;
-      font-size: clamp(2rem, 5vw, 3.5rem);
+      font-size: clamp(1.5rem, 5vw, 3rem);
       font-weight: bold;
       background: linear-gradient(45deg, #ff6b9d, #ffd700, #ff6b9d);
       -webkit-background-clip: text;
       -webkit-text-fill-color: transparent;
-      filter: drop-shadow(0 0 20px rgba(255,107,157,0.7));
+      filter: drop-shadow(0 0 15px rgba(255,107,157,0.7));
       animation: titleGlow 2s infinite alternate;
+      padding: 0 10px;
     }
     
     @keyframes titleGlow {
-      0% { filter: drop-shadow(0 0 15px rgba(255,107,157,0.5)); }
-      100% { filter: drop-shadow(0 0 35px rgba(255,215,0,0.8)); }
+      0% { filter: drop-shadow(0 0 10px rgba(255,107,157,0.5)); }
+      100% { filter: drop-shadow(0 0 30px rgba(255,215,0,0.8)); }
     }
     
     .subtitle {
       position: absolute;
-      top: 85px;
+      top: 70px;
       width: 100%;
       text-align: center;
       color: #ffe0e0;
-      font-size: 1rem;
+      font-size: 0.9rem;
       letter-spacing: 2px;
+      padding: 0 10px;
     }
     
     .info-panel {
       position: absolute;
-      bottom: 30px;
+      bottom: 20px;
       left: 50%;
       transform: translateX(-50%);
-      background: rgba(0,0,0,0.8);
+      background: rgba(0,0,0,0.85);
       backdrop-filter: blur(20px);
-      padding: 15px 25px;
+      padding: 12px 18px;
       border-radius: 50px;
       color: #ffd4d4;
-      font-size: 0.95rem;
+      font-size: 0.85rem;
       font-weight: bold;
       border: 1px solid rgba(255,150,180,0.5);
       pointer-events: all;
       display: flex;
-      gap: 15px;
+      gap: 10px;
       align-items: center;
       flex-wrap: wrap;
       justify-content: center;
       box-shadow: 0 10px 30px rgba(0,0,0,0.6);
+      max-width: 95vw;
     }
     
     .candle-status {
       display: flex;
       align-items: center;
-      gap: 8px;
+      gap: 6px;
       background: rgba(255,255,255,0.1);
-      padding: 8px 18px;
+      padding: 6px 14px;
       border-radius: 25px;
+      font-size: 0.8rem;
     }
     
     .btn {
       border: none;
       color: white;
-      padding: 10px 20px;
+      padding: 8px 16px;
       border-radius: 25px;
-      font-size: 0.95rem;
+      font-size: 0.85rem;
       cursor: pointer;
       font-weight: bold;
       pointer-events: all;
       transition: all 0.3s;
       box-shadow: 0 4px 15px rgba(255,77,109,0.4);
       white-space: nowrap;
+      -webkit-tap-highlight-color: transparent;
+      touch-action: manipulation;
     }
     
-    .btn:hover:not(:disabled) {
-      transform: scale(1.05);
+    .btn:active {
+      transform: scale(0.95);
     }
     
     .btn:disabled {
       opacity: 0.4;
-      cursor: not-allowed;
-      transform: none;
+      pointer-events: none;
     }
     
     .slice-btn {
@@ -126,10 +135,10 @@
     
     .celebration-msg {
       position: absolute;
-      top: 45%;
+      top: 40%;
       left: 50%;
       transform: translate(-50%, -50%);
-      font-size: 2rem;
+      font-size: 1.5rem;
       color: white;
       text-shadow: 0 0 25px #ff6b9d;
       pointer-events: none;
@@ -137,6 +146,7 @@
       transition: all 0.5s;
       text-align: center;
       z-index: 20;
+      padding: 0 20px;
     }
     
     .celebration-msg.show {
@@ -153,11 +163,26 @@
     .slice-guide {
       position: absolute;
       pointer-events: none;
-      border: 2px dashed rgba(255,215,0,0.7);
+      border: 3px dashed rgba(255,215,0,0.8);
       border-radius: 50%;
-      background: rgba(255,107,157,0.1);
+      background: rgba(255,107,157,0.15);
       display: none;
       z-index: 5;
+    }
+    
+    @media (max-width: 600px) {
+      .info-panel {
+        gap: 8px;
+        padding: 10px 14px;
+      }
+      .btn {
+        padding: 8px 14px;
+        font-size: 0.8rem;
+      }
+      .candle-status {
+        font-size: 0.75rem;
+        padding: 5px 10px;
+      }
     }
   </style>
 </head>
@@ -174,7 +199,7 @@
         <span id="candleCount">5 candles lit</span>
       </div>
       <button class="btn slice-btn" id="sliceModeBtn" disabled>🔪 Blow candles first</button>
-      <button class="btn reset-btn" id="resetBtn">🔄 Reset Cake</button>
+      <button class="btn reset-btn" id="resetBtn">🔄 Reset</button>
     </div>
     
     <div class="slice-guide" id="sliceGuide"></div>
@@ -198,6 +223,7 @@
     renderer.shadowMap.enabled = true;
     renderer.shadowMap.type = THREE.PCFSoftShadowMap;
     renderer.setClearColor(0x1a0a2e);
+    renderer.setPixelRatio(Math.min(window.devicePixelRatio, 2));
     document.body.appendChild(renderer.domElement);
 
     const labelRenderer = new CSS2DRenderer();
@@ -215,6 +241,12 @@
     controls.minDistance = 3.5;
     controls.maxDistance = 10;
     controls.update();
+    
+    // Configure controls for touch
+    controls.touches = {
+      ONE: THREE.TOUCH.ROTATE,
+      TWO: THREE.TOUCH.DOLLY_PAN
+    };
 
     // ============ LIGHTING ============
     const ambientLight = new THREE.AmbientLight(0xffffff, 0.6);
@@ -237,8 +269,9 @@
 
     // ============ STARS ============
     const starsGeo = new THREE.BufferGeometry();
-    const starsPos = new Float32Array(800 * 3);
-    for (let i = 0; i < 800 * 3; i += 3) {
+    const starsCount = 500;
+    const starsPos = new Float32Array(starsCount * 3);
+    for (let i = 0; i < starsCount * 3; i += 3) {
       starsPos[i] = (Math.random() - 0.5) * 25;
       starsPos[i+1] = (Math.random() - 0.5) * 15 + 5;
       starsPos[i+2] = (Math.random() - 0.5) * 20;
@@ -256,9 +289,7 @@
     // Stand/Plate
     const standGeo = new THREE.CylinderGeometry(1.5, 1.6, 0.2, 64);
     const standMat = new THREE.MeshStandardMaterial({ 
-      color: '#faf0e6', 
-      roughness: 0.3, 
-      metalness: 0.5,
+      color: '#faf0e6', roughness: 0.3, metalness: 0.5
     });
     const stand = new THREE.Mesh(standGeo, standMat);
     stand.position.y = -0.05;
@@ -269,22 +300,17 @@
     // Gold rim
     const rimGeo = new THREE.TorusGeometry(1.55, 0.05, 16, 64);
     const rimMat = new THREE.MeshStandardMaterial({ 
-      color: '#ffd700', 
-      roughness: 0.2, 
-      metalness: 0.9,
-      emissive: new THREE.Color(0x221100)
+      color: '#ffd700', roughness: 0.2, metalness: 0.9, emissive: new THREE.Color(0x221100)
     });
     const rim = new THREE.Mesh(rimGeo, rimMat);
     rim.rotation.x = Math.PI / 2;
     rim.position.y = 0.05;
     cakeGroup.add(rim);
 
-    // Main cake body - RED VELVET
+    // Main cake body
     const cakeBodyGeo = new THREE.CylinderGeometry(1.3, 1.35, 0.8, 64);
     const cakeBodyMat = new THREE.MeshStandardMaterial({ 
-      color: '#8B0000',
-      roughness: 0.5,
-      metalness: 0.1,
+      color: '#8B0000', roughness: 0.5, metalness: 0.1
     });
     const cakeBody = new THREE.Mesh(cakeBodyGeo, cakeBodyMat);
     cakeBody.position.y = 0.45;
@@ -293,30 +319,10 @@
     cakeBody.name = 'cakeBody';
     cakeGroup.add(cakeBody);
 
-    // Red velvet texture - small darker spots
-    for (let i = 0; i < 50; i++) {
-      const spotGeo = new THREE.SphereGeometry(0.03, 4, 4);
-      const spotMat = new THREE.MeshStandardMaterial({ 
-        color: Math.random() > 0.5 ? '#5a0000' : '#a52a2a',
-        roughness: 0.3
-      });
-      const spot = new THREE.Mesh(spotGeo, spotMat);
-      const angle = Math.random() * Math.PI * 2;
-      const r = 1.3 * (0.3 + Math.random() * 0.7);
-      spot.position.set(
-        Math.cos(angle) * r,
-        0.2 + Math.random() * 0.5,
-        Math.sin(angle) * r
-      );
-      cakeGroup.add(spot);
-    }
-
-    // Cream cheese frosting on top
+    // Frosting top
     const frostingTopGeo = new THREE.CylinderGeometry(1.32, 1.32, 0.1, 64);
     const frostingMat = new THREE.MeshStandardMaterial({ 
-      color: '#FFF5EE',
-      roughness: 0.3,
-      metalness: 0.05,
+      color: '#FFF5EE', roughness: 0.3, metalness: 0.05
     });
     const frostingTop = new THREE.Mesh(frostingTopGeo, frostingMat);
     frostingTop.position.y = 0.87;
@@ -325,7 +331,7 @@
     frostingTop.name = 'frostingTop';
     cakeGroup.add(frostingTop);
 
-    // Frosting ring decoration
+    // Frosting ring
     const frostingRingGeo = new THREE.TorusGeometry(1.3, 0.07, 16, 64);
     const frostingRing = new THREE.Mesh(frostingRingGeo, frostingMat);
     frostingRing.rotation.x = Math.PI / 2;
@@ -333,23 +339,6 @@
     frostingRing.castShadow = true;
     frostingRing.name = 'frostingRing';
     cakeGroup.add(frostingRing);
-
-    // Cream cheese drips on sides
-    for (let i = 0; i < 20; i++) {
-      const dripHeight = 0.1 + Math.random() * 0.3;
-      const dripGeo = new THREE.CylinderGeometry(0.03, 0.06, dripHeight, 8);
-      const drip = new THREE.Mesh(dripGeo, frostingMat);
-      const angle = (i / 20) * Math.PI * 2;
-      drip.position.set(
-        Math.cos(angle) * 1.28,
-        0.8 - dripHeight/2,
-        Math.sin(angle) * 1.28
-      );
-      drip.rotation.z = (Math.random() - 0.5) * 0.5;
-      drip.rotation.x = (Math.random() - 0.5) * 0.5;
-      drip.castShadow = true;
-      cakeGroup.add(drip);
-    }
 
     // ============ CANDLES ============
     const candles = [];
@@ -359,91 +348,63 @@
     function createCandle(x, z) {
       const candleGroup = new THREE.Group();
       
-      // Candle stick
       const stickGeo = new THREE.CylinderGeometry(0.08, 0.09, 0.5, 16);
-      const stickMat = new THREE.MeshStandardMaterial({ 
-        color: '#FFF0F5',
-        roughness: 0.4,
-      });
+      const stickMat = new THREE.MeshStandardMaterial({ color: '#FFF0F5', roughness: 0.4 });
       const stick = new THREE.Mesh(stickGeo, stickMat);
       stick.position.y = 0.25;
       stick.castShadow = true;
       stick.name = 'candleStick';
       candleGroup.add(stick);
       
-      // Pink stripes
       for (let i = 0; i < 4; i++) {
         const stripeGeo = new THREE.TorusGeometry(0.085, 0.015, 8, 16);
-        const stripeMat = new THREE.MeshStandardMaterial({ 
-          color: '#FFB6C1',
-          roughness: 0.3,
-        });
+        const stripeMat = new THREE.MeshStandardMaterial({ color: '#FFB6C1', roughness: 0.3 });
         const stripe = new THREE.Mesh(stripeGeo, stripeMat);
         stripe.rotation.x = Math.PI / 2;
         stripe.position.y = 0.1 + i * 0.12;
         candleGroup.add(stripe);
       }
       
-      // Wick
       const wickGeo = new THREE.CylinderGeometry(0.02, 0.025, 0.1, 8);
-      const wickMat = new THREE.MeshStandardMaterial({ color: '#2F1A0E' });
-      const wick = new THREE.Mesh(wickGeo, wickMat);
+      const wick = new THREE.Mesh(wickGeo, new THREE.MeshStandardMaterial({ color: '#2F1A0E' }));
       wick.position.y = 0.52;
       wick.name = 'wick';
       candleGroup.add(wick);
       
-      // Flame
       const flameGroup = new THREE.Group();
       flameGroup.position.y = 0.6;
       flameGroup.name = 'flameGroup';
       
       const flameCoreGeo = new THREE.ConeGeometry(0.07, 0.2, 8);
-      const flameCoreMat = new THREE.MeshStandardMaterial({ 
-        color: '#FFD700',
-        emissive: new THREE.Color('#FF8C00'),
-        roughness: 0.2
-      });
-      const flameCore = new THREE.Mesh(flameCoreGeo, flameCoreMat);
+      const flameCore = new THREE.Mesh(flameCoreGeo, new THREE.MeshStandardMaterial({ 
+        color: '#FFD700', emissive: new THREE.Color('#FF8C00'), roughness: 0.2
+      }));
       flameCore.name = 'flameCore';
       flameGroup.add(flameCore);
       
       const flameOuterGeo = new THREE.ConeGeometry(0.1, 0.25, 8);
-      const flameOuterMat = new THREE.MeshStandardMaterial({ 
-        color: '#FFA500',
-        emissive: new THREE.Color('#FF4500'),
-        roughness: 0.3,
-        transparent: true,
-        opacity: 0.6
-      });
-      const flameOuter = new THREE.Mesh(flameOuterGeo, flameOuterMat);
+      const flameOuter = new THREE.Mesh(flameOuterGeo, new THREE.MeshStandardMaterial({ 
+        color: '#FFA500', emissive: new THREE.Color('#FF4500'), roughness: 0.3, transparent: true, opacity: 0.6
+      }));
       flameOuter.position.y = -0.03;
       flameOuter.name = 'flameOuter';
       flameGroup.add(flameOuter);
       
       candleGroup.add(flameGroup);
       
-      // Light
       const light = new THREE.PointLight('#FFA500', 0.8, 3);
       light.position.y = 0.6;
       candleGroup.add(light);
       
       candleGroup.position.set(x, 0.95, z);
       
-      return {
-        group: candleGroup,
-        flameGroup,
-        light,
-        isLit: true
-      };
+      return { group: candleGroup, flameGroup, light, isLit: true };
     }
 
-    // Place 5 candles in a circle on top of cake
     const radius = 0.5;
     for (let i = 0; i < 5; i++) {
       const angle = (i / 5) * Math.PI * 2 - Math.PI / 2;
-      const x = Math.cos(angle) * radius;
-      const z = Math.sin(angle) * radius;
-      const candle = createCandle(x, z);
+      const candle = createCandle(Math.cos(angle) * radius, Math.sin(angle) * radius);
       cakeGroup.add(candle.group);
       candles.push(candle);
       flameGroups.push(candle.flameGroup);
@@ -463,7 +424,6 @@
     nameLabel.position.set(0, 1.5, 1.2);
     cakeGroup.add(nameLabel);
 
-    // Heart decorations
     ['❤️', '💕', '💗', '💖', '💝'].forEach((emoji, i) => {
       const div = document.createElement('div');
       div.textContent = emoji;
@@ -499,16 +459,14 @@
       }
     }
     
-    function onCandleClick(event) {
-      if (sliceModeActive) return;
-      
+    function getIntersection(clientX, clientY) {
       const rect = renderer.domElement.getBoundingClientRect();
-      mouse.x = ((event.clientX - rect.left) / rect.width) * 2 - 1;
-      mouse.y = -((event.clientY - rect.top) / rect.height) * 2 + 1;
+      mouse.x = ((clientX - rect.left) / rect.width) * 2 - 1;
+      mouse.y = -((clientY - rect.top) / rect.height) * 2 + 1;
       
       raycaster.setFromCamera(mouse, camera);
       
-      // Get all candle meshes
+      // Get all candle objects
       const allObjects = [];
       candles.forEach(candle => {
         candle.group.traverse(child => {
@@ -516,23 +474,37 @@
         });
       });
       
-      const intersects = raycaster.intersectObjects(allObjects);
+      // Also check cake for slicing
+      const cakeObjects = [cakeBody, frostingTop];
       
-      if (intersects.length > 0) {
-        let obj = intersects[0].object;
+      return {
+        candles: raycaster.intersectObjects(allObjects),
+        cake: raycaster.intersectObjects(cakeObjects, false)
+      };
+    }
+    
+    function handleInteraction(clientX, clientY, isTouch = false) {
+      if (sliceModeActive && isDragging) return;
+      
+      const intersections = getIntersection(clientX, clientY);
+      
+      // Check candle clicks
+      if (!sliceModeActive && intersections.candles.length > 0) {
+        let obj = intersections.candles[0].object;
         
-        // Find which candle
         for (let candle of candles) {
           let parent = obj;
           while (parent) {
             if (parent === candle.group && candle.isLit) {
               blowOutCandle(candle);
-              return;
+              return true;
             }
             parent = parent.parent;
           }
         }
       }
+      
+      return false;
     }
     
     function blowOutCandle(candle) {
@@ -540,7 +512,6 @@
       candle.flameGroup.visible = false;
       candle.light.intensity = 0;
       
-      // Smoke particles
       const pos = candle.group.position.clone();
       pos.y += 1.5;
       createSmoke(pos);
@@ -555,11 +526,7 @@
     function createSmoke(position) {
       for (let i = 0; i < 10; i++) {
         const geo = new THREE.SphereGeometry(0.03, 4, 4);
-        const mat = new THREE.MeshBasicMaterial({ 
-          color: '#cccccc', 
-          transparent: true, 
-          opacity: 0.6 
-        });
+        const mat = new THREE.MeshBasicMaterial({ color: '#cccccc', transparent: true, opacity: 0.6 });
         const particle = new THREE.Mesh(geo, mat);
         particle.position.copy(position);
         particle.position.x += (Math.random() - 0.5) * 0.3;
@@ -579,21 +546,17 @@
           particle.position.add(vel);
           particle.material.opacity = life * 0.6;
           particle.scale.multiplyScalar(1.02);
-          
-          if (life > 0) {
-            requestAnimationFrame(animate);
-          } else {
-            scene.remove(particle);
-          }
+          if (life > 0) requestAnimationFrame(animate);
+          else scene.remove(particle);
         }
         animate();
       }
     }
     
-    function getCakePoint(event) {
+    function getCakePoint(clientX, clientY) {
       const rect = renderer.domElement.getBoundingClientRect();
-      mouse.x = ((event.clientX - rect.left) / rect.width) * 2 - 1;
-      mouse.y = -((event.clientY - rect.top) / rect.height) * 2 + 1;
+      mouse.x = ((clientX - rect.left) / rect.width) * 2 - 1;
+      mouse.y = -((clientY - rect.top) / rect.height) * 2 + 1;
       
       raycaster.setFromCamera(mouse, camera);
       const intersects = raycaster.intersectObjects([cakeBody, frostingTop], false);
@@ -603,32 +566,17 @@
       }
       return null;
     }
-    
-    // Slice mode button
-    document.getElementById('sliceModeBtn').addEventListener('click', () => {
-      if (candles.filter(c => c.isLit).length > 0) return;
-      
-      sliceModeActive = !sliceModeActive;
-      const btn = document.getElementById('sliceModeBtn');
-      
-      if (sliceModeActive) {
-        btn.textContent = '🔪 Slice Mode ON - Drag on cake';
-        btn.style.background = 'linear-gradient(135deg, #00cc44, #008800)';
-        renderer.domElement.style.cursor = 'crosshair';
-        controls.enabled = false;
-      } else {
-        btn.textContent = '🔪 Slice the Cake!';
-        btn.style.background = 'linear-gradient(135deg, #ffd700, #ff6b00)';
-        renderer.domElement.style.cursor = 'default';
-        controls.enabled = true;
-      }
-    });
-    
-    // Mouse events for slicing
+
+    // ============ MOUSE EVENTS ============
     renderer.domElement.addEventListener('mousedown', (event) => {
-      if (!sliceModeActive || event.button !== 0) return;
+      if (!sliceModeActive) {
+        handleInteraction(event.clientX, event.clientY);
+        return;
+      }
       
-      const point = getCakePoint(event);
+      if (event.button !== 0) return;
+      
+      const point = getCakePoint(event.clientX, event.clientY);
       if (point) {
         isDragging = true;
         dragStart = { x: event.clientX, y: event.clientY };
@@ -666,8 +614,8 @@
         Math.pow(event.clientY - dragStart.y, 2)
       );
       
-      if (dist > 50) {
-        const endPoint = getCakePoint(event);
+      if (dist > 40) {
+        const endPoint = getCakePoint(event.clientX, event.clientY);
         if (endPoint && dragStart3D) {
           sliceCount++;
           createFlyingSlice(dragStart3D, endPoint);
@@ -685,7 +633,107 @@
         }
       }
     });
+
+    // ============ TOUCH EVENTS FOR MOBILE ============
+    renderer.domElement.addEventListener('touchstart', (event) => {
+      if (event.touches.length === 1) {
+        const touch = event.touches[0];
+        
+        // Try to blow candle first
+        const handled = handleInteraction(touch.clientX, touch.clientY, true);
+        
+        if (!handled && sliceModeActive) {
+          // Start slice
+          const point = getCakePoint(touch.clientX, touch.clientY);
+          if (point) {
+            isDragging = true;
+            dragStart = { x: touch.clientX, y: touch.clientY };
+            dragStart3D = point;
+            
+            document.getElementById('sliceGuide').style.display = 'block';
+            document.getElementById('sliceGuide').style.left = (touch.clientX - 40) + 'px';
+            document.getElementById('sliceGuide').style.top = (touch.clientY - 40) + 'px';
+            document.getElementById('sliceGuide').style.width = '80px';
+            document.getElementById('sliceGuide').style.height = '80px';
+          }
+        }
+      }
+    }, { passive: false });
     
+    renderer.domElement.addEventListener('touchmove', (event) => {
+      if (!isDragging || !sliceModeActive || event.touches.length !== 1) return;
+      event.preventDefault();
+      
+      const touch = event.touches[0];
+      const guide = document.getElementById('sliceGuide');
+      guide.style.left = Math.min(dragStart.x, touch.clientX) - 30 + 'px';
+      guide.style.top = Math.min(dragStart.y, touch.clientY) - 30 + 'px';
+      guide.style.width = Math.abs(touch.clientX - dragStart.x) + 60 + 'px';
+      guide.style.height = Math.abs(touch.clientY - dragStart.y) + 60 + 'px';
+    }, { passive: false });
+    
+    renderer.domElement.addEventListener('touchend', (event) => {
+      if (!isDragging || !sliceModeActive) {
+        isDragging = false;
+        return;
+      }
+      
+      isDragging = false;
+      document.getElementById('sliceGuide').style.display = 'none';
+      
+      const touch = event.changedTouches[0];
+      const dist = Math.sqrt(
+        Math.pow(touch.clientX - dragStart.x, 2) + 
+        Math.pow(touch.clientY - dragStart.y, 2)
+      );
+      
+      if (dist > 40) {
+        const endPoint = getCakePoint(touch.clientX, touch.clientY);
+        if (endPoint && dragStart3D) {
+          sliceCount++;
+          createFlyingSlice(dragStart3D, endPoint);
+          createCutLine(dragStart3D, endPoint);
+          createParticles(dragStart3D, endPoint);
+          showMessage(`🍰 Slice #${sliceCount} for Laddoo! 💕`);
+          
+          if (sliceCount >= 3) {
+            sliceModeActive = false;
+            document.getElementById('sliceModeBtn').textContent = '🎂 Enjoy!';
+            document.getElementById('sliceModeBtn').disabled = true;
+            renderer.domElement.style.cursor = 'default';
+            controls.enabled = true;
+          }
+        }
+      }
+    });
+
+    // ============ SLICE MODE BUTTON ============
+    document.getElementById('sliceModeBtn').addEventListener('click', (e) => {
+      e.stopPropagation();
+      if (candles.filter(c => c.isLit).length > 0) return;
+      
+      sliceModeActive = !sliceModeActive;
+      const btn = document.getElementById('sliceModeBtn');
+      
+      if (sliceModeActive) {
+        btn.textContent = '🔪 Slice ON - Drag on cake';
+        btn.style.background = 'linear-gradient(135deg, #00cc44, #008800)';
+        controls.enabled = false;
+      } else {
+        btn.textContent = '🔪 Slice the Cake!';
+        btn.style.background = 'linear-gradient(135deg, #ffd700, #ff6b00)';
+        controls.enabled = true;
+      }
+    });
+    
+    // Touch event for button
+    document.getElementById('sliceModeBtn').addEventListener('touchstart', (e) => {
+      e.stopPropagation();
+      e.preventDefault();
+      document.getElementById('sliceModeBtn').click();
+    });
+
+    // ============ CREATE SLICE ============
     function createFlyingSlice(p1, p2) {
       const center = new THREE.Vector3(0, 0.45, 0);
       const d1 = new THREE.Vector3().subVectors(p1, center).normalize();
@@ -705,18 +753,12 @@
       shape.closePath();
       
       const geo = new THREE.ExtrudeGeometry(shape, {
-        steps: 1,
-        depth: 0.7,
-        bevelEnabled: true,
-        bevelThickness: 0.03,
-        bevelSize: 0.03,
-        bevelSegments: 3
+        steps: 1, depth: 0.7, bevelEnabled: true,
+        bevelThickness: 0.03, bevelSize: 0.03, bevelSegments: 3
       });
       
       const slice = new THREE.Mesh(geo, new THREE.MeshStandardMaterial({
-        color: '#8B0000',
-        roughness: 0.5,
-        metalness: 0.1
+        color: '#8B0000', roughness: 0.5, metalness: 0.1
       }));
       slice.rotation.x = -Math.PI/2;
       slice.castShadow = true;
@@ -746,11 +788,8 @@
                 c.material.opacity = 1 - fade;
               }
             });
-            if (fade < 1) {
-              requestAnimationFrame(fadeOut);
-            } else {
-              scene.remove(group);
-            }
+            if (fade < 1) requestAnimationFrame(fadeOut);
+            else scene.remove(group);
           }
           fadeOut();
         }
@@ -765,9 +804,7 @@
       ];
       const geo = new THREE.BufferGeometry().setFromPoints(points);
       const line = new THREE.Line(geo, new THREE.LineBasicMaterial({
-        color: '#FFD700',
-        transparent: true,
-        opacity: 0.8
+        color: '#FFD700', transparent: true, opacity: 0.8
       }));
       cakeGroup.add(line);
       
@@ -775,11 +812,8 @@
       function fadeLine() {
         fade += 0.02;
         line.material.opacity = 0.8 - fade;
-        if (fade < 0.8) {
-          requestAnimationFrame(fadeLine);
-        } else {
-          cakeGroup.remove(line);
-        }
+        if (fade < 0.8) requestAnimationFrame(fadeLine);
+        else cakeGroup.remove(line);
       }
       setTimeout(() => fadeLine(), 300);
     }
@@ -794,15 +828,11 @@
         });
         const particle = new THREE.Mesh(geo, mat);
         particle.position.copy(mid).add(new THREE.Vector3(
-          (Math.random()-0.5)*0.5,
-          (Math.random()-0.5)*0.3,
-          (Math.random()-0.5)*0.5
+          (Math.random()-0.5)*0.5, (Math.random()-0.5)*0.3, (Math.random()-0.5)*0.5
         ));
         
         const vel = new THREE.Vector3(
-          (Math.random()-0.5)*0.04,
-          Math.random()*0.05,
-          (Math.random()-0.5)*0.04
+          (Math.random()-0.5)*0.04, Math.random()*0.05, (Math.random()-0.5)*0.04
         );
         
         scene.add(particle);
@@ -812,11 +842,8 @@
           life -= 0.03;
           particle.position.add(vel);
           vel.y -= 0.001;
-          if (life > 0) {
-            requestAnimationFrame(animate);
-          } else {
-            scene.remove(particle);
-          }
+          if (life > 0) requestAnimationFrame(animate);
+          else scene.remove(particle);
         }
         animate();
       }
@@ -828,9 +855,20 @@
       el.classList.add('show');
       setTimeout(() => el.classList.remove('show'), 2500);
     }
+
+    // ============ RESET ============
+    document.getElementById('resetBtn').addEventListener('click', (e) => {
+      e.stopPropagation();
+      resetCake();
+    });
     
-    // Reset button
-    document.getElementById('resetBtn').addEventListener('click', () => {
+    document.getElementById('resetBtn').addEventListener('touchstart', (e) => {
+      e.stopPropagation();
+      e.preventDefault();
+      resetCake();
+    });
+    
+    function resetCake() {
       candles.forEach(c => {
         c.isLit = true;
         c.flameGroup.visible = true;
@@ -842,13 +880,11 @@
       document.getElementById('sliceModeBtn').disabled = true;
       document.getElementById('sliceModeBtn').textContent = '🔪 Blow candles first';
       document.getElementById('sliceModeBtn').style.background = 'linear-gradient(135deg, #ffd700, #ff8c00)';
-      renderer.domElement.style.cursor = 'default';
       controls.enabled = true;
       
-      // Remove slices and lines
       const toRemove = [];
       scene.traverse(child => {
-        if (child.isGroup && child !== cakeGroup && child.parent === scene) {
+        if (child.isGroup && child !== cakeGroup && child.parent === scene && child.children.length > 0) {
           toRemove.push(child);
         }
         if (child.isLine && child.parent === cakeGroup) {
@@ -860,10 +896,8 @@
       });
       
       updateUI();
-    });
+    }
     
-    // Event listeners
-    renderer.domElement.addEventListener('click', onCandleClick);
     updateUI();
 
     // ============ ANIMATION ============
